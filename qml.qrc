@@ -9,5 +9,8 @@
         <file>images/menu@2x.png</file>
         <file>images/menu@3x.png</file>
         <file>images/menu@4x.png</file>
+        <file>images/iphoneBar.png</file>
+        <file>images/playerplay.png</file>
+        <file>images/playerstop.png</file>
     </qresource>
 </RCC>

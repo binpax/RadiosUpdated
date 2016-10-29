@@ -4,13 +4,13 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls.Universal 2.0
 import Qt.labs.settings 1.0
+
 ApplicationWindow {
+    id:window
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
-
-
+    title: qsTr("Radio Biladi")
     header: ToolBar {
         Material.foreground: "white"
 
@@ -67,7 +67,7 @@ ApplicationWindow {
     Drawer {
         id: drawer
         width: Math.min(window.width, window.height) / 3 * 2
-        height: window.height
+        height: window.height- header.height
 
         ListView {
             id: listView
@@ -78,4 +78,69 @@ ApplicationWindow {
         }
     }
 
+
+
+    footer:Image{
+        id: footerToolbar
+
+        height: 60
+        source: "qrc:/images/iphoneBar.png"
+        ProgressBar {
+            //visible: loadingstate
+            anchors{
+                verticalCenter: channelInfo.verticalCenter
+                left:channelInfo.left
+            }
+            indeterminate: true
+        }
+        Text{
+            id:channelTitle
+
+            anchors{
+                top:parent.top
+                topMargin: parent.height*0.25 - channelTitle.height*0.4
+                left:playButton.right
+                leftMargin: parent.width*0.1
+            }
+            font.bold: true
+            text: "Chargement ..."
+        }
+        Text{
+            id:channelInfo
+
+            anchors{
+                bottom:parent.bottom
+                bottomMargin: parent.height*0.25 - channelTitle.height*0.5
+                left:playButton.right
+                leftMargin: parent.width*0.1
+            }
+
+            //visible: !loadingstate
+            font.bold: true
+            //text:"Informations"
+        }
+        Image {
+            id :playButton
+
+            anchors{
+                left:parent.left
+                leftMargin: parent.width*0.1
+                verticalCenter: parent.verticalCenter
+            }
+            //backgroundColor:theme.primaryColor
+            source:"qrc:/images/playerplay.png"
+            height: width
+            width: parent.height *0.8
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked:{
+                    if(mediaplayer.playbackState == MediaPlayer.PlayingState)
+                    { mediaplayer.stop(); loadingstate = false}
+                    else
+                        mediaplayer.play();
+                }
+            }
+        }
+    }
 }
