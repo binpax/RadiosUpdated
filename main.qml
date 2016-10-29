@@ -78,69 +78,55 @@ ApplicationWindow {
         }
     }
 
+    SwipeView {
+        id: swipeView
+        anchors.fill: parent
+        currentIndex: tabBar.currentIndex
 
+        Pane {
+            width: swipeView.width
+            height: swipeView.height
 
-    footer:Image{
-        id: footerToolbar
+            Column {
+                spacing: 40
+                width: parent.width
 
-        height: 60
-        source: "qrc:/images/iphoneBar.png"
-        ProgressBar {
-            //visible: loadingstate
-            anchors{
-                verticalCenter: channelInfo.verticalCenter
-                left:channelInfo.left
-            }
-            indeterminate: true
-        }
-        Text{
-            id:channelTitle
-
-            anchors{
-                top:parent.top
-                topMargin: parent.height*0.25 - channelTitle.height*0.4
-                left:playButton.right
-                leftMargin: parent.width*0.1
-            }
-            font.bold: true
-            text: "Chargement ..."
-        }
-        Text{
-            id:channelInfo
-
-            anchors{
-                bottom:parent.bottom
-                bottomMargin: parent.height*0.25 - channelTitle.height*0.5
-                left:playButton.right
-                leftMargin: parent.width*0.1
-            }
-
-            //visible: !loadingstate
-            font.bold: true
-            //text:"Informations"
-        }
-        Image {
-            id :playButton
-
-            anchors{
-                left:parent.left
-                leftMargin: parent.width*0.1
-                verticalCenter: parent.verticalCenter
-            }
-            //backgroundColor:theme.primaryColor
-            source:"qrc:/images/playerplay.png"
-            height: width
-            width: parent.height *0.8
-
-            MouseArea{
-                anchors.fill: parent
-                onClicked:{
-                    if(mediaplayer.playbackState == MediaPlayer.PlayingState)
-                    { mediaplayer.stop(); loadingstate = false}
-                    else
-                        mediaplayer.play();
+                Label {
+                    width: parent.width
+                    wrapMode: Label.Wrap
+                    horizontalAlignment: Qt.AlignHCenter
+                    text: "TabBar is a bar with icons or text which allows the user"
+                          + "to switch between different subtasks, views, or modes."
                 }
             }
+        }
+        Pane {
+            width: swipeView.width
+            height: swipeView.height
+
+            Column {
+                spacing: 40
+                width: parent.width
+
+                Label {
+                    width: parent.width
+                    wrapMode: Label.Wrap
+                    horizontalAlignment: Qt.AlignHCenter
+                    text: "TabBar is a bar with icons or text which alloor modes."
+                }
+            }
+        }
+    }
+
+    footer:TabBar {
+        id: tabBar
+        currentIndex: swipeView.currentIndex
+
+        TabButton {
+            text: "Stations list"
+        }
+        TabButton {
+            text: "Player"
         }
     }
 }
