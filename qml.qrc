@@ -12,6 +12,5 @@
         <file>images/iphoneBar.png</file>
         <file>images/playerplay.png</file>
         <file>images/playerstop.png</file>
-        <file>equalizer.qml</file>
     </qresource>
 </RCC>
