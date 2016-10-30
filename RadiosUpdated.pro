@@ -1,9 +1,11 @@
-QT += quick quickcontrols2 androidextras
+QT += quick quickcontrols2 androidextras core widgets
 
+CONFIG += debug
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    notificationclient.cpp
+    notificationclient.cpp \
+    android/src/org_qtproject_example_QAndroidResultReceiver_jniExport.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,9 +25,11 @@ DISTFILES += \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat \
-    android/src/NotificationClient.java
+    android/src/org/qtproject/example/notification/NotificationClient.java \
+    android/src/org/qtproject/example/QAndroidResultReceiver/jniExport.java
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
-    notificationclient.h
+    notificationclient.h \
+    android/src/org_qtproject_example_QAndroidResultReceiver_jniExport.h
