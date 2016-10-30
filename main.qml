@@ -13,139 +13,41 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("Radio Biladi")
-    header: ToolBar {
-        Material.foreground: "white"
-
-        RowLayout {
-            spacing: 20
-            anchors.fill: parent
-
-            ToolButton {
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "qrc:/images/drawer.png"
-                }
-                onClicked: drawer.open()
-            }
-
-            Label {
-                id: titleLabel
-                text: "Radio Biladi v2"
-                font.pixelSize: 20
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-            }
-
-            ToolButton {
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "qrc:/images/menu.png"
-                }
-                onClicked: optionsMenu.open()
-
-                Menu {
-                    id: optionsMenu
-                    x: parent.width - width
-                    transformOrigin: Menu.TopRight
-
-                    MenuItem {
-                        text: "Settings"
-                        onTriggered: settingsPopup.open()
-                    }
-                    MenuItem {
-                        text: "About"
-                        onTriggered: aboutDialog.open()
-                    }
-                }
-            }
-        }
+    Image{
+        source: "qrc:/images/bg-bleu.png"
+        anchors.fill: parent
+        z:0
     }
+    Rectangle{
+        id:searchBg
+        height: searchField.height
+        width: window.width - 30
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: "white"
+        opacity: 0.4
+        radius: 10
+        visible: searchField.visible
+    }
+
+    SearchAreaDelegate{
+        id:searchField
+        anchors.horizontalCenter: searchBg.horizontalCenter
+        visible: false
+    }
+    header: ToolBarDelegate{}
     Drawer {
         id: drawer
         width: Math.min(window.width, window.height) / 3 * 2
-        height: window.height- header.height
-
-        ListView {
-            id: listView
-            currentIndex: -1
-            anchors.fill: parent
-
-            ScrollIndicator.vertical: ScrollIndicator { }
-        }
+        height: window.height
+        DrawerDelegate{}
     }
-
     SwipeView {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
-
-        Flickable {
-            id: flickable
-            height: swipeView.height
-            contentHeight: pane.height
-            flickableDirection : Flickable.VerticalFlick
-
-            interactive: true
-            contentWidth: pane.width
-
-            Pane {
-                id: pane
-                width: swipeView.width
-                height: listElements.height
-
-                Grid{
-                    id:listElements
-
-                    width: parent.width
-                    spacing:4
-                    columns: 4//Math.round(page.width/cardFixedSize)
-
-                    Repeater {
-                        model: modelData
-                        delegate:cardElement
-
-                    }
-                }
-            }
-
-            ScrollBar.vertical: ScrollBar { }
-        }
-
-
-
-        Pane {
-            id: pane2
-            width: flickable.width
-            height: flickable.height * 1.25
-            Column {
-                id: column2
-                spacing: 40
-                width: parent.width
-
-                Label {
-                    width: parent.width
-                    wrapMode: Label.Wrap
-                    horizontalAlignment: Qt.AlignHCenter
-                    text: "ScrollBar is an interactive bar that can be used to scroll to a specific position. "
-                          + "A scroll bar can be either vertical or horizontal, and can be attached to any Flickable, "
-                          + "such as ListView and GridView."
-                }
-
-                Image {
-                    rotation: 90
-                    source: "qrc:/images/arrows.png"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-            }
-        }
-    }
+      RadioList{}
+   }
 
     footer:TabBar {
         id: tabBar
@@ -377,7 +279,8 @@ ApplicationWindow {
             imageSource : "qrc:/srcRadios/Radios/radio-tarab.png"
             source: "http://live.medi1.com/Tarab"
         }
-    }      Component{
+    }
+    Component{
         id:cardElement
         Rectangle {
             id: house_tumbnail

@@ -13,5 +13,11 @@
         <file>images/playerplay.png</file>
         <file>images/playerstop.png</file>
         <file>equalizer.qml</file>
+        <file>RadioList.qml</file>
+        <file>images/bg-bleu.png</file>
+        <file>images/chevron-right.png</file>
+        <file>DrawerDelegate.qml</file>
+        <file>ToolBarDelegate.qml</file>
+        <file>SearchAreaDelegate.qml</file>
     </qresource>
 </RCC>
