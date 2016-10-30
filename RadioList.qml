@@ -30,20 +30,29 @@ ListView {
             timer.running = true;
         }
     }
-    highlight: Rectangle { color: "burlywood"}
+    highlight: Rectangle { color: "#1abc9c"}
 
     delegate: Component{
         Item{
             width: parent.width
-            height: 70
+            height: 100
             Rectangle{
                 anchors.fill: parent
                 anchors.margins: 5
-                opacity: 0.3
-                color: "lightsteelblue"
+                opacity: 0.5
+                color: "#4aa3df"
                 border.color: "white"
                 border.width: 2
                 radius: 5
+            }
+            Image{
+                id:listElementIcon
+                source: imageSource
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: (parent.height - height)/ 2
+                height: parent.height * 0.8
+                width: height
             }
             Image{
                 source: "qrc:/images/chevron-right.png"
@@ -52,10 +61,23 @@ ListView {
                 anchors.rightMargin: (parent.height - height)/ 2
                 height: parent.height * 0.8
                 width: height
+
             }
             Text {
-                text: name
-                anchors.centerIn: parent
+                text: "<b>"+name+"</b>"
+                anchors.left : listElementIcon.left
+                anchors.leftMargin: listElementIcon.width *3/2
+                anchors.top: listElementIcon.top
+                anchors.topMargin: listElementIcon.height/5
+                color: "white"
+                font.pointSize: 20
+            }
+            Text {
+                text: "<i>This is a Description</i>"
+                anchors.left : listElementIcon.left
+                anchors.leftMargin: listElementIcon.width *3/2
+                anchors.bottom: listElementIcon.bottom
+                anchors.bottomMargin: listElementIcon.height/5
                 color: "white"
             }
             MouseArea{
