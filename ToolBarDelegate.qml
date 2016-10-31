@@ -18,7 +18,6 @@ ToolBar {
                 source: timer.running? "qrc:/images/arrow_left.png" : "qrc:/images/drawer.png"
             }
             onClicked:{
-
                 if(timer.running){
                     timer.stop()
                     searchField.visible = false
@@ -27,13 +26,13 @@ ToolBar {
             }
         }
 
-        Label {
-            id: titleLabel
-            text: "Radio Biladi v2"
-            font.pixelSize: 20
-            elide: Label.ElideRight
-            horizontalAlignment: Qt.AlignHCenter
-            verticalAlignment: Qt.AlignVCenter
+            Label {
+                id: titleLabel
+                text: "<b>Radio Biladi v2</b>"
+                font.pixelSize: 20
+                elide: Label.ElideRight
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
             Layout.fillWidth: true
         }
 

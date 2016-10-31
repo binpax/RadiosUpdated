@@ -66,5 +66,8 @@
         <file>images/arrow_left@x2.png</file>
         <file>images/arrow_left@x3.png</file>
         <file>images/arrow_left@x4.png</file>
+        <file>FlatButton.qml</file>
+        <file>images/Sleeping-64.png</file>
+        <file>images/favorites.png</file>
     </qresource>
 </RCC>
