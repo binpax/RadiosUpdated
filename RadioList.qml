@@ -7,7 +7,7 @@ ListView {
     height: parent.height
     y: searchField.visible ? searchField.height : 0
 
-    model: modelData
+    model:radioModel// modelData
     function reload() {
         var bookList = DB.getAllBooks();
         model.clear();
@@ -64,7 +64,7 @@ ListView {
 
             }
             Text {
-                text: "<b>"+name+"</b>"
+                text: "<b>"+model.modelData.Name+"</b>"
                 anchors.left : listElementIcon.left
                 anchors.leftMargin: listElementIcon.width *3/2
                 anchors.top: listElementIcon.top

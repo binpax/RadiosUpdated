@@ -2,7 +2,8 @@ QT += quick quickcontrols2 multimedia
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    radiostation.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,3 +18,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     RadioList.qml \
     ToolBarDelegate.qml
+
+HEADERS += \
+    radiostation.h
