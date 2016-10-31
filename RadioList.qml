@@ -35,7 +35,7 @@ ListView {
     delegate: Component{
         Item{
             width: parent.width
-            height: 100
+            height: 80
             Rectangle{
                 anchors.fill: parent
                 anchors.margins: 5
@@ -96,11 +96,5 @@ ListView {
 
     Behavior on y {
         NumberAnimation{ duration: 200 }
-    }
-    Timer{
-        id: timer; running: false; interval: 7000; repeat: false
-        onTriggered: {
-            searchField.visible = false;
-        }
     }
 }

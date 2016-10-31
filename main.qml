@@ -332,5 +332,11 @@ ApplicationWindow {
             }
         }
     }
+    Timer{
+        id: timer; running: false; interval: 7000; repeat: false
+        onTriggered: {
 
+            searchField.visible = false;
+        }
+    }
 }
