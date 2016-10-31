@@ -22,7 +22,7 @@ ToolBar {
 
             Label {
                 id: titleLabel
-                text: "Radio Biladi v2"
+                text: "<b>Radio Biladi v2</b>"
                 font.pixelSize: 20
                 elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter

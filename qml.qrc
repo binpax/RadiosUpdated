@@ -62,5 +62,8 @@
         <file>images/Radios/radiomars.png</file>
         <file>images/Radios/radioplus.jpeg</file>
         <file>images/Radios/radiosawa.png</file>
+        <file>FlatButton.qml</file>
+        <file>images/Sleeping-64.png</file>
+        <file>images/favorites.png</file>
     </qresource>
 </RCC>
