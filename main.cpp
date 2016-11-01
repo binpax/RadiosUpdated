@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-    QList<Radiostation*> radioModel;
+    QList<QObject*> radioModel;
     fillingData(radioModel);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

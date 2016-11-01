@@ -161,10 +161,4 @@ ApplicationWindow {
             searchField.visible = false;
         }
     }
-    Component.onCompleted: {
-        for(var i = 0; i<modelData.count;i++)
-        {
-            console.log("radioModel.append(new Radiostation(\""+ modelData.get(i).name+"\",\""+ modelData.get(i).imageSource+"\",\""+modelData.get(i).source+"\",\"This is a Description\"));")
-        }
-    }
 }

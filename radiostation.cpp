@@ -8,7 +8,7 @@ Radiostation::Radiostation(QString var,QString Img,QString linkst,QString desc)
     _Description = desc;
 }
 
-void fillingData(QList<Radiostation*> &radioModel){
+void fillingData(QList<QObject*> &radioModel){
 radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
 radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8000/;","This is a Description"));
 radioModel.append(new Radiostation("Hitradio","qrc:/images/Radios/hit-radio.png","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
