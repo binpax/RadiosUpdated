@@ -45,15 +45,21 @@ ListView {
                 border.width: 2
                 radius: 5
             }
-            Image{
+            Rectangle{
                 id:listElementIcon
-                source: imageSource
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: (parent.height - height)/ 2
                 height: parent.height * 0.8
                 width: height
+                radius: 5
+                clip: true
+                Image{
+                    source: model.modelData.ImgSrc
+                    anchors.fill: parent
+                }
             }
+
             Image{
                 source: "qrc:/images/chevron-right.png"
                 anchors.verticalCenter: parent.verticalCenter
@@ -92,9 +98,20 @@ ListView {
 
     onCurrentItemChanged: {
         //myText.text = myListModel.get(myListView.currentIndex).dayOfWeek
+
     }
 
     Behavior on y {
         NumberAnimation{ duration: 200 }
     }
+    Component.onCompleted: {
+        console.log("hel32lo")
+
+        for(var i = 0; i<listView.model.modelData.countR;i++)
+        {
+            var elemCur = radioModel.get(i);
+            console.log("hello"+ elemCur.Name)
+        }
+    }
+
 }

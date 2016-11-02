@@ -10,6 +10,7 @@ class Radiostation : public QObject
     Q_PROPERTY(QString ImgSrc READ ImgSrc  )
     Q_PROPERTY(QString Url READ Url  )
     Q_PROPERTY(QString Description READ Description  )
+    Q_PROPERTY(QString countR READ countR  )
 
 public:
     Radiostation(QString ,QString ,QString ,QString );
@@ -25,6 +26,9 @@ public:
     }
     QString Description() const {
         return _Description;
+    }
+    int countR() const {
+        return 0;//_countR;
     }
     QList<Radiostation *> List() const {
         return _List;
