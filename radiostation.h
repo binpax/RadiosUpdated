@@ -42,5 +42,6 @@ private:
 
 };
 
-void fillingData(QList<QObject *> &radioModel);
+void InitData(QList<Radiostation *> &radioModel);
+void fillingData(QList<QObject*> &dest,const QList<Radiostation*> src);
 #endif // RADIOSTATION_H

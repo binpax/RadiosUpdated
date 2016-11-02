@@ -7,9 +7,12 @@
 
 int main(int argc, char *argv[])
 {
-    QList<QObject*> radioModel;
-    fillingData(radioModel);
 
+    QList<Radiostation*> initModel;
+    QList<QObject*> radioModel;
+
+    InitData(initModel);
+    fillingData(radioModel,initModel);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Material");

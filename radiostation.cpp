@@ -8,7 +8,7 @@ Radiostation::Radiostation(QString var,QString Img,QString linkst,QString desc)
     _Description = desc;
 }
 
-void fillingData(QList<QObject*> &radioModel){
+void InitData(QList<Radiostation*> &radioModel){
 radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
 radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8000/;","This is a Description"));
 radioModel.append(new Radiostation("Hitradio","qrc:/images/Radios/radio-hit-radio.png","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
@@ -48,4 +48,9 @@ radioModel.append(new Radiostation("Anwa Rock","qrc:/images/Radios/radio-anwaroc
 radioModel.append(new Radiostation("Medi1 Soufi","qrc:/images/Radios/radio-soufi.png","http://live.medi1.com/Soufi","This is a Description"));
 radioModel.append(new Radiostation("Medi1 Andalouse","qrc:/images/Radios/radio-andalousse.png","http://live.medi1.com/Andalouse","This is a Description"));
 radioModel.append(new Radiostation("Medi1 Tarab","qrc:/images/Radios/radio-tarab.png","http://live.medi1.com/Tarab","This is a Description"));
+}
+void fillingData(QList<QObject*> &dest,const QList<Radiostation*> src){
+    for(int i = 0; i<src.count();i++){
+        dest.append(new Radiostation(src.at(i)->Name(),src.at(i)->ImgSrc(),src.at(i)->Url(),src.at(i)->Description()));
+    }
 }
