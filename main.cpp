@@ -8,6 +8,8 @@
 int main(int argc, char *argv[])
 {
 
+    MyClass myClass;
+
     QList<Radiostation*> initModel;
     QList<QObject*> radioModel;
 
@@ -22,7 +24,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = engine.rootContext();
     ctxt->setContextProperty("radioModel", QVariant::fromValue(radioModel));
-
+    ctxt->setContextProperty("myObject", &myClass);
     QMediaPlayer* player = new QMediaPlayer(0, QMediaPlayer::StreamPlayback);
     player->setMedia(QUrl("http://vpr.streamguys.net/vpr64.mp3"));
     player->setVolume(80);

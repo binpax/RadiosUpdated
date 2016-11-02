@@ -42,6 +42,20 @@ private:
 
 };
 
+class MyClass : public QObject
+ {
+     Q_OBJECT
+ public:
+     Q_INVOKABLE void cppMethod(const QString &msg) {
+         //qDebug() << "Called the C++ method with" << msg;
+     }
+
+ public slots:
+     void cppSlot(int number) {
+        // qDebug() << "Called the C++ slot with" << number;
+     }
+ };
+
 void InitData(QList<Radiostation *> &radioModel);
 void fillingData(QList<QObject*> &dest,const QList<Radiostation*> src);
 #endif // RADIOSTATION_H

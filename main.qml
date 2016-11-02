@@ -161,4 +161,8 @@ ApplicationWindow {
             searchField.visible = false;
         }
     }
+    Component.onCompleted: {
+        myObject.cppMethod("Hello from QML")
+        myObject.cppSlot(12345)
+    }
 }
