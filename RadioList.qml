@@ -105,13 +105,7 @@ ListView {
         NumberAnimation{ duration: 200 }
     }
     Component.onCompleted: {
-        console.log("hel32lo")
 
-        for(var i = 0; i<listView.model.modelData.countR;i++)
-        {
-            var elemCur = radioModel.get(i);
-            console.log("hello"+ elemCur.Name)
-        }
     }
 
 }

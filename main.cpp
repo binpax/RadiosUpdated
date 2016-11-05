@@ -4,31 +4,22 @@
 #include <QMediaPlayer>
 #include "radiostation.h"
 #include <QQmlContext>
-
 int main(int argc, char *argv[])
 {
-
-    MyClass myClass;
-
-    QList<Radiostation*> initModel;
-    QList<QObject*> radioModel;
-
-    InitData(initModel);
-    fillingData(radioModel,initModel);
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    //init
     QGuiApplication app(argc, argv);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QQuickStyle::setStyle("Material");
-
+    //main varialbes
+    RadioStatiosContainer myClass;
+    invokeclass Invokeclass;
+    //loading engine
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-
+    //affecting data
     QQmlContext *ctxt = engine.rootContext();
-    ctxt->setContextProperty("radioModel", QVariant::fromValue(radioModel));
+    ctxt->setContextProperty("radioModel", QVariant::fromValue(myClass.getRadioList()));
     ctxt->setContextProperty("myObject", &myClass);
-    QMediaPlayer* player = new QMediaPlayer(0, QMediaPlayer::StreamPlayback);
-    player->setMedia(QUrl("http://vpr.streamguys.net/vpr64.mp3"));
-    player->setVolume(80);
-    player->play();
-
+    ctxt->setContextProperty("invokeclass", &Invokeclass);
     return app.exec();
 }

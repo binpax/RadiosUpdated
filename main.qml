@@ -162,7 +162,11 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        myObject.cppMethod("Hello from QML")
-        myObject.cppSlot(12345)
+        invokeclass.cppSlot(67)
+
+        invokeclass.cppMethod("Hello from QML")
+        myObject.search2("12345")
+        myObject.clear()
+
     }
 }

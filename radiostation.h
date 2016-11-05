@@ -3,14 +3,15 @@
 #include <QObject>
 #include <QList>
 
+#include <iostream>
 class Radiostation : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString Name READ Name  )
-    Q_PROPERTY(QString ImgSrc READ ImgSrc  )
-    Q_PROPERTY(QString Url READ Url  )
-    Q_PROPERTY(QString Description READ Description  )
-    Q_PROPERTY(QString countR READ countR  )
+    Q_PROPERTY(QString Name READ Name CONSTANT )
+    Q_PROPERTY(QString ImgSrc READ ImgSrc  NOTIFY textChanged)
+    Q_PROPERTY(QString Url READ Url NOTIFY textChanged )
+    Q_PROPERTY(QString Description READ Description NOTIFY textChanged )
+    Q_PROPERTY(QString countR READ countR NOTIFY textChanged )
 
 public:
     Radiostation(QString ,QString ,QString ,QString );
@@ -40,21 +41,48 @@ private:
     QString _Url;
     QString _Description;
 
+signals:
+    void textChanged();
+
 };
 
-class MyClass : public QObject
- {
-     Q_OBJECT
- public:
-     Q_INVOKABLE void cppMethod(const QString &msg) {
-         //qDebug() << "Called the C++ method with" << msg;
-     }
+class RadioStatiosContainer : public QObject
+{
+    Q_OBJECT
+public:
+    RadioStatiosContainer();
 
- public slots:
-     void cppSlot(int number) {
-        // qDebug() << "Called the C++ slot with" << number;
-     }
- };
+    Q_INVOKABLE QString search(const QString msg) {
+        //qDebug() << "Called the C++ method with" << msg;
+        return msg;
+    }
+
+    Q_INVOKABLE void clear() {
+        //qDebug() << "Called the C++ method with" << msg;
+        std::cout<<"testinggggg";
+    }
+    Q_INVOKABLE  QList<QObject *> getRadioList();
+public slots:
+    Q_INVOKABLE void search2(QString msg) {
+        std::cout<< "Called the C++ method with" << msg.toStdString();
+    }
+
+private:
+    QList<Radiostation *> radioModel;
+};
+class invokeclass : public QObject
+{
+    Q_OBJECT
+public:
+    Q_INVOKABLE void cppMethod(const QString &msg) {
+        std::cout<< "Called the C++ method with" << msg.toStdString();
+    }
+
+public slots:
+    void cppSlot(int number) {
+        std::cout<< "Called the C++ slot with" << number;
+    }
+};
 
 void InitData(QList<Radiostation *> &radioModel);
 void fillingData(QList<QObject*> &dest,const QList<Radiostation*> src);
