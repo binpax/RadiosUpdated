@@ -72,7 +72,7 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     {
         jniExport sendingData = new jniExport();
          sendingData.intMethod(45);
-
+        sendingData.StringReceiver("hada string a baba");
         if (m_notificationManager == null) {
             m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
             m_builder = new Notification.Builder(m_instance);

@@ -15,6 +15,8 @@ extern "C" {
 JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_intMethod
   (JNIEnv *, jobject, jint);
 
+JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_StringReceiver
+  (JNIEnv *var1, jobject var2, jstring string);
 #ifdef __cplusplus
 }
 #endif
