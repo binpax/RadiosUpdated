@@ -5,7 +5,7 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     notificationclient.cpp \
-    android/src/org_qtproject_example_QAndroidResultReceiver_jniExport.cpp
+    android/src/com_ahmed_qandroidresultreceiver_jniexport_jniexport.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,17 +19,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     android/AndroidManifest.xml \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradlew \
-    android/res/values/libs.xml \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat \
-    android/src/org/qtproject/example/notification/NotificationClient.java \
-    android/src/org/qtproject/example/QAndroidResultReceiver/jniExport.java
-
+    android/src/com/ahmed/radios/NotificationClient.java \
+    android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 HEADERS += \
     notificationclient.h \
-    android/src/org_qtproject_example_QAndroidResultReceiver_jniExport.h
+    android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h

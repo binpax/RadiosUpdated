@@ -48,13 +48,14 @@
 **
 ****************************************************************************/
 
-package org.qtproject.example.notification;
+package com.ahmed.radios;
+import com.ahmed.radios.*;
 
+import com.ahmed.radios.*;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
-
-import org.qtproject.example.QAndroidResultReceiver.jniExport;
+import com.ahmed.QAndroidResultReceiver.jniExport.jniExport;
 
 public class NotificationClient extends org.qtproject.qt5.android.bindings.QtActivity
 {
@@ -70,7 +71,7 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     public static void notify(String s)
     {
         jniExport sendingData = new jniExport();
-        sendingData.intMethod(45);
+         sendingData.intMethod(45);
 
         if (m_notificationManager == null) {
             m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
