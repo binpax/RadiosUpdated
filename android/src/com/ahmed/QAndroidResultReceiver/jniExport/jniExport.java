@@ -6,8 +6,8 @@ package com.ahmed.QAndroidResultReceiver.jniExport;
 
 
 public class jniExport {
-    public native int intMethod(int n);
-    public native int StringReceiver(String n);
+    public static native int intMethod(int n);
+    public  native int StringReceiver(String n);
     public  void intMethod(String n){};
 
 }

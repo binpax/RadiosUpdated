@@ -69,16 +69,15 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private static NotificationManager m_notificationManager;
     private static Notification.Builder m_builder;
     private static NotificationClient m_instance;
-
+    private static jniExport m_jniExport;
 
     private AudioManager mAudioManager;
     private AudioFocusChangeListenerImpl mAudioFocusChangeListener;
     private boolean mFocusGranted, mFocusChanged;
 
-    AudioManager am = null;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //m_jniExport.intMethod(12);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         mAudioFocusChangeListener = new AudioFocusChangeListenerImpl();
@@ -96,6 +95,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         String message = "Focus request " + (mFocusGranted ? "granted" : "failed");
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         Log.i(TAG, message);
+
+        m_jniExport = new jniExport();
         };
 
     public NotificationClient()
@@ -108,10 +109,10 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
     public static void notify(String s)
     {
+
         //new NotificationClient();
-        jniExport sendingData = new jniExport();
-         sendingData.intMethod(45);
-        sendingData.StringReceiver("hada string a baba");
+        //jniExport sendingData = new jniExport();
+        //jniExport.intMethod(45);
         if (m_notificationManager == null) {
             m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
             m_builder = new Notification.Builder(m_instance);
@@ -129,7 +130,9 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         @Override
         public void onAudioFocusChange(int focusChange) {
             mFocusChanged = true;
-            Log.i(TAG, "Focus changed");
+            Log.i(TAG, "Focus changed   " + focusChange +"__________________________\n");
+
+            m_jniExport.intMethod(focusChange);
 
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:

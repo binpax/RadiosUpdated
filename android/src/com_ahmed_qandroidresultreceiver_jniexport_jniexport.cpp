@@ -2,10 +2,10 @@
 #include <QMessageBox>
 
 JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_intMethod
-  (JNIEnv *, jobject, jint){
+  (JNIEnv *, jobject, jint focusChange){
 
     QMessageBox msgBox;
-    msgBox.setText("JE suis de retour");
+    msgBox.setText("JE suis de retour " + (QString)focusChange);
     msgBox.exec();
 
     return 1;
