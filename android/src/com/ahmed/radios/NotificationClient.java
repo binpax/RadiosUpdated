@@ -55,7 +55,14 @@ import com.ahmed.radios.*;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.media.AudioManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.ahmed.QAndroidResultReceiver.jniExport.jniExport;
+
+import static android.content.ContentValues.TAG;
 
 public class NotificationClient extends org.qtproject.qt5.android.bindings.QtActivity
 {
@@ -63,13 +70,45 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private static Notification.Builder m_builder;
     private static NotificationClient m_instance;
 
+
+    private AudioManager mAudioManager;
+    private AudioFocusChangeListenerImpl mAudioFocusChangeListener;
+    private boolean mFocusGranted, mFocusChanged;
+
+    AudioManager am = null;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        mAudioFocusChangeListener = new AudioFocusChangeListenerImpl();
+        int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener,
+                AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        switch (result) {
+            case AudioManager.AUDIOFOCUS_REQUEST_GRANTED:
+                mFocusGranted = true;
+                break;
+            case AudioManager.AUDIOFOCUS_REQUEST_FAILED:
+                mFocusGranted = false;
+                break;
+        }
+
+        String message = "Focus request " + (mFocusGranted ? "granted" : "failed");
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Log.i(TAG, message);
+        };
+
     public NotificationClient()
     {
         m_instance = this;
+
+
+
     }
 
     public static void notify(String s)
     {
+        //new NotificationClient();
         jniExport sendingData = new jniExport();
          sendingData.intMethod(45);
         sendingData.StringReceiver("hada string a baba");
@@ -82,5 +121,39 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
         m_builder.setContentText(s);
         m_notificationManager.notify(1, m_builder.build());
+    }
+
+
+    private class AudioFocusChangeListenerImpl implements AudioManager.OnAudioFocusChangeListener {
+
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            mFocusChanged = true;
+            Log.i(TAG, "Focus changed");
+
+            switch (focusChange) {
+                case AudioManager.AUDIOFOCUS_GAIN:
+                    Log.i(TAG, "AUDIOFOCUS_GAIN");
+                    Toast.makeText(NotificationClient.this, "Focus GAINED", Toast.LENGTH_LONG).show();
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS:
+                    Log.i(TAG, "AUDIOFOCUS_LOSS");
+                    Toast.makeText(NotificationClient.this, "Focus LOST", Toast.LENGTH_LONG).show();
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                    Log.i(TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
+                    Toast.makeText(NotificationClient.this, "Focus LOST TRANSIENT", Toast.LENGTH_LONG).show();
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                    Log.i(TAG, "AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK");
+                    Toast.makeText(NotificationClient.this, "Focus LOST TRANSIENT CAN DUCK", Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+    }
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
     }
 }
