@@ -162,11 +162,8 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        invokeclass.cppSlot(67)
+        radioStatiosContainer.clear()
 
-        invokeclass.cppMethod("Hello from QML")
-        myObject.search2("12345")
-        myObject.clear()
 
     }
 }

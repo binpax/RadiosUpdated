@@ -2,6 +2,7 @@
 #define RADIOSTATION_H
 #include <QObject>
 #include <QList>
+#include "qdebug.h"
 
 #include <iostream>
 class Radiostation : public QObject
@@ -29,7 +30,7 @@ public:
         return _Description;
     }
     int countR() const {
-        return 0;//_countR;
+        return 0;
     }
     QList<Radiostation *> List() const {
         return _List;
@@ -59,31 +60,19 @@ public:
 
     Q_INVOKABLE void clear() {
         //qDebug() << "Called the C++ method with" << msg;
-        std::cout<<"testinggggg";
+        qDebug() << "Called the C++ method with";
     }
-    Q_INVOKABLE  QList<QObject *> getRadioList();
+    Q_INVOKABLE  QList<QObject *> getRadioList(const QString ="NULL");
 public slots:
     Q_INVOKABLE void search2(QString msg) {
         std::cout<< "Called the C++ method with" << msg.toStdString();
     }
 
 private:
+    QString filter;
     QList<Radiostation *> radioModel;
-};
-class invokeclass : public QObject
-{
-    Q_OBJECT
-public:
-    Q_INVOKABLE void cppMethod(const QString &msg) {
-        std::cout<< "Called the C++ method with" << msg.toStdString();
-    }
+    QList<QObject*> Result;
 
-public slots:
-    void cppSlot(int number) {
-        std::cout<< "Called the C++ slot with" << number;
-    }
 };
 
-void InitData(QList<Radiostation *> &radioModel);
-void fillingData(QList<QObject*> &dest,const QList<Radiostation*> src);
 #endif // RADIOSTATION_H

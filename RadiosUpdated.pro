@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 multimedia
+QT += quick quickcontrols2 multimedia qml
 
 CONFIG += c++11
 

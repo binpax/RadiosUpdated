@@ -7,7 +7,7 @@ ListView {
     height: parent.height
     y: searchField.visible ? searchField.height : 0
 
-    model:radioModel// modelData
+    model:radioStatiosContainer.getRadioList(searchField.text)
     function reload() {
         var bookList = DB.getAllBooks();
         model.clear();
@@ -34,7 +34,7 @@ ListView {
 
     delegate: Component{
         Item{
-            width: parent.width
+            width: listView.width
             height: 80
             Rectangle{
                 anchors.fill: parent

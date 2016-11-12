@@ -24,10 +24,8 @@ TextField{
         timer.restart();
         if(text.length > 0 ) {
             searchIcon.source = "qrc:/Images/Icon-delete.png"
-            listView.applyFilter(text);
         } else {
             searchIcon.source = "qrc:/Images/Icon-search.png"
-            listView.reload();
         }
     }
 
