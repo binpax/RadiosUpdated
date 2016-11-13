@@ -52,26 +52,22 @@ class RadioStatiosContainer : public QObject
     Q_OBJECT
 public:
     RadioStatiosContainer();
-
-    Q_INVOKABLE QString search(const QString msg) {
-        //qDebug() << "Called the C++ method with" << msg;
-        return msg;
-    }
+    void FillingFavorites(const QList<QString> data);
 
     Q_INVOKABLE void clear() {
         //qDebug() << "Called the C++ method with" << msg;
         qDebug() << "Called the C++ method with";
     }
     Q_INVOKABLE  QList<QObject *> getRadioList(const QString ="NULL");
-public slots:
-    Q_INVOKABLE void search2(QString msg) {
-        std::cout<< "Called the C++ method with" << msg.toStdString();
-    }
-
+    Q_INVOKABLE  QList<QObject *> getFavoritesRadioList(const QString ="NULL");
 private:
     QString filter;
-    QList<Radiostation *> radioModel;
+    QString Favoritesfilter;
+    QList<QObject*> FavoritesResult;
+
     QList<QObject*> Result;
+    QList<Radiostation *> favoritesModel;
+    QList<Radiostation *> radioModel;
 
 };
 

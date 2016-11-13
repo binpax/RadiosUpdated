@@ -7,6 +7,7 @@ Radiostation::Radiostation(QString var,QString Img,QString linkst,QString desc)
     _Url = linkst;
     _Description = desc;
 }
+
 RadioStatiosContainer::RadioStatiosContainer(){
     filter = "NULL";
     radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
@@ -49,6 +50,7 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Medi1 Andalouse","qrc:/images/Radios/radio-andalousse.png","http://live.medi1.com/Andalouse","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Tarab","qrc:/images/Radios/radio-tarab.png","http://live.medi1.com/Tarab","This is a Description"));
 }
+
 QList<QObject*> RadioStatiosContainer::getRadioList(const QString msg){
     qDebug() << "Called the C++";
     if(!(filter == msg)){
@@ -62,3 +64,29 @@ QList<QObject*> RadioStatiosContainer::getRadioList(const QString msg){
     }
     return Result;
 }
+
+QList<QObject*> RadioStatiosContainer::getFavoritesRadioList(const QString msg){
+    qDebug() << "Called the C++";
+    if(!(Favoritesfilter == msg)){
+        qDebug() << "filling Result";
+        Favoritesfilter = msg;
+        FavoritesResult.clear();
+        for(int i = 0; i<radioModel.count();i++){
+            if(radioModel.at(i)->Name().contains(Favoritesfilter,Qt::CaseInsensitive))
+                FavoritesResult.append(new Radiostation(favoritesModel.at(i)->Name(),favoritesModel.at(i)->ImgSrc(),favoritesModel.at(i)->Url(),favoritesModel.at(i)->Description()));
+        }
+    }
+    return FavoritesResult;
+}
+
+void RadioStatiosContainer::FillingFavorites(const QList<QString> data){
+    for(int i =0;i<data.count();i++){
+        for(int j=0;i<radioModel.count();j++){
+            if(radioModel.at(j)->Name() == data.at(i)){
+                FavoritesResult.append(new Radiostation(radioModel.at(j)->Name(),radioModel.at(j)->ImgSrc(),radioModel.at(j)->Url(),radioModel.at(j)->Description()));
+                break;
+            }
+        }
+    }
+}
+

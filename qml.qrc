@@ -69,5 +69,7 @@
         <file>FlatButton.qml</file>
         <file>images/Sleeping-64.png</file>
         <file>images/favorites.png</file>
+        <file>MPlayer.qml</file>
+        <file>FavoritesList.qml</file>
     </qresource>
 </RCC>
