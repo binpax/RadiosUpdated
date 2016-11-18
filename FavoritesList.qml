@@ -2,11 +2,15 @@ import QtQuick 2.7
 
 ListView {
     id:flistView
+
+    property alias radioList : flistView
+
     clip: true
     height: parent.height
     y: searchField.visible ? searchField.height : 0
 
-    model:radioStatiosContainer.getFavoritesRadioList(searchField.text)
+    model:radioStatiosContainer.getFavoritesRadioList()
+
     onContentYChanged: {
         if( contentY < -searchField.height*1.05 ) {
             searchField.visible = true;
@@ -88,5 +92,4 @@ ListView {
     Component.onCompleted: {
         if(flistView.count == 0) swipeView.currentIndex = 1
     }
-
 }

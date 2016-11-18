@@ -2,11 +2,13 @@ import QtQuick 2.7
 
 ListView {
     id:listView
+    property alias radioList : listView
+
     clip: true
     height: parent.height
     y: searchField.visible ? searchField.height : 0
 
-    model:radioStatiosContainer.getRadioList(searchField.text)
+    model:radioStatiosContainer.getRadioList()
     onContentYChanged: {
         if( contentY < -searchField.height*1.05 ) {
             searchField.visible = true;
@@ -85,9 +87,6 @@ ListView {
 
     Behavior on y {
         NumberAnimation{ duration: 200 }
-    }
-    Component.onCompleted: {
-
     }
 
 }

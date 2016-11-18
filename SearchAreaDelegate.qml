@@ -21,6 +21,14 @@ TextField{
     }
 
     onTextChanged: {
+        if(swipeView.currentIndex == 0){
+            radioStatiosContainer.searchFavorites(text)
+            radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()
+        }else{
+            radioStatiosContainer.searchALL(text)
+            radiolistALL.radioList.model = radioStatiosContainer.getRadioList()
+        }
+
         timer.restart();
         if(text.length > 0 ) {
             searchIcon.source = "qrc:/Images/Icon-delete.png"
@@ -37,4 +45,5 @@ TextField{
     Behavior on visible {
         NumberAnimation{ duration: 200 }
     }
+
 }

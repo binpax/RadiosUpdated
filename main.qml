@@ -48,8 +48,8 @@ ApplicationWindow {
         height: parent.height
         currentIndex: tabBar.currentIndex
 
-        FavoritesList{}
-        RadioList{}
+        FavoritesList{id:radiolistFAVORITES}
+        RadioList{id:radiolistALL}
         MPlayer{}
     }
     footer:TabBar {
@@ -69,6 +69,6 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        radioStatiosContainer.clear()
+        //radioStatiosContainer.clear()
     }
 }

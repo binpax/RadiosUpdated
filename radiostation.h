@@ -4,7 +4,8 @@
 #include <QList>
 #include "qdebug.h"
 
-#include <iostream>
+#include <QSettings>
+#include <QVariant>
 class Radiostation : public QObject
 {
     Q_OBJECT
@@ -53,21 +54,19 @@ class RadioStatiosContainer : public QObject
 public:
     RadioStatiosContainer();
     void FillingFavorites(const QList<QString> data);
-
-    Q_INVOKABLE void clear() {
-        //qDebug() << "Called the C++ method with" << msg;
-        qDebug() << "Called the C++ method with";
-    }
-    Q_INVOKABLE  QList<QObject *> getRadioList(const QString ="NULL");
-    Q_INVOKABLE  QList<QObject *> getFavoritesRadioList(const QString ="NULL");
-private:
-    QString filter;
-    QString Favoritesfilter;
+    Q_INVOKABLE void searchALL(const QString ="NULL");
+    Q_INVOKABLE void searchFavorites(const QString ="NULL");
+    Q_INVOKABLE  QList<QObject *> getRadioList();
+    Q_INVOKABLE  QList<QObject *> getFavoritesRadioList();//const QString ="NULL"
     QList<QObject*> FavoritesResult;
 
     QList<QObject*> Result;
+private:
+    QString filter;
+    QString Favoritesfilter;
     QList<Radiostation *> favoritesModel;
     QList<Radiostation *> radioModel;
+    QSettings *settings;
 
 };
 
