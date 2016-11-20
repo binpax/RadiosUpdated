@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls.Universal 2.0
+import QtQuick.Extras 1.4
 
 ApplicationWindow {
     id:window
@@ -45,12 +46,63 @@ ApplicationWindow {
         id: swipeView
 
         width: parent.width
-        height: parent.height
+        height: parent.height - playerbar.height
         currentIndex: tabBar.currentIndex
 
         FavoritesList{id:radiolistFAVORITES}
         RadioList{id:radiolistALL}
-        MPlayer{}
+        MPlayer{id:radioPlayerPAGE}
+        onCurrentIndexChanged: {
+            createAnimation.stop()
+            if(currentIndex == 2) createAnimation.to = 0
+            else createAnimation.to = 1.0
+            createAnimation.start()
+        }
+    }
+
+    Rectangle{
+        id:playerbar
+        height: tabBar.height * 5 / 4
+        width: parent.width
+        color: "#cbd0d3"
+        opacity: 1
+        anchors{
+            left: parent.left
+            bottom: parent.bottom
+        }
+        NumberAnimation on opacity {
+            id: createAnimation
+            duration: 1000
+        }
+
+        ToggleButton{
+            id:barPlayButton
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left:parent.left
+            anchors.leftMargin: 10
+            text: checked ? "Stop" : "Play"
+            checked: radioPlayerPAGE.playButton.checked
+            height: parent.height * 0.9
+        }
+        Text {
+            id: name
+            text: radioPlayerPAGE.radioname.text //qsTr("Station Name")
+            anchors.verticalCenter: barPlayButton.verticalCenter
+            anchors.left:barPlayButton.right
+            anchors.leftMargin: 15
+        }
+        MouseArea{
+            anchors{
+                left: name.left
+                right: parent.right
+                bottom: parent.bottom
+                top:parent.top
+            }
+            onClicked: {
+                //openmediaplayer
+            }
+        }
+
     }
     footer:TabBar {
         id: tabBar

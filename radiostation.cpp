@@ -9,8 +9,6 @@ Radiostation::Radiostation(QString var,QString Img,QString linkst,QString desc)
 }
 
 RadioStatiosContainer::RadioStatiosContainer(){
-    filter = "NULL";
-    Favoritesfilter = "NULL";
     radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
     radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8000/;","This is a Description"));
     radioModel.append(new Radiostation("Hitradio","qrc:/images/Radios/radio-hit-radio.png","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
@@ -50,49 +48,24 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Medi1 Soufi","qrc:/images/Radios/radio-soufi.png","http://live.medi1.com/Soufi","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Andalouse","qrc:/images/Radios/radio-andalousse.png","http://live.medi1.com/Andalouse","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Tarab","qrc:/images/Radios/radio-tarab.png","http://live.medi1.com/Tarab","This is a Description"));
-    for(int i = 0; i<radioModel.count();i++){
-        Result.append(new Radiostation(radioModel.at(i)->Name(),radioModel.at(i)->ImgSrc(),radioModel.at(i)->Url(),radioModel.at(i)->Description()));
-    }
-
     settings = new QSettings("Ahmed Soft", "Radios");
     QVariantList reading = settings->value("timeList").toList();
     QList<QString> tmp2;
     foreach(QVariant v, reading) tmp2 << v.toString();
     FillingFavorites(tmp2);
+    searchALL("");
     searchFavorites("");
+    mPlayer = new QMediaPlayer(this, QMediaPlayer::StreamPlayback);
+    connect(mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
+            this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
+   // connect(mPlayer, SIGNAL(bufferStatusChanged(int)), slider, SLOT(setValue(int)));
 }
 
 QList<QObject*> RadioStatiosContainer::getRadioList(){
-    /*
-    if(!(filter == msg)){
-        filter = msg;
-        Result.clear();
-        for(int i = 0; i<radioModel.count();i++){
-            if(radioModel.at(i)->Name().contains(filter,Qt::CaseInsensitive))
-                Result.append(new Radiostation(radioModel.at(i)->Name(),radioModel.at(i)->ImgSrc(),radioModel.at(i)->Url(),radioModel.at(i)->Description()));
-        }
-    }
-    */
     return Result;
 }
 
 QList<QObject*> RadioStatiosContainer::getFavoritesRadioList(){
-    /*
-   qDebug() << "Called the C++  getFavoritesRadioList   "<<msg;
-    if(!(Favoritesfilter == msg)){
-        qDebug() << "filling Result getFavoritesRadioList :" + favoritesModel.count();
-        Favoritesfilter = msg;
-        FavoritesResult.clear();
-
-        for(int i = 0; i<favoritesModel.count();i++){
-            qDebug() << "IFFFFF getFavoritesRadioList ";
-
-            if(favoritesModel.at(i)->Name().contains(Favoritesfilter,Qt::CaseInsensitive)){
-                FavoritesResult.append(new Radiostation(favoritesModel.at(i)->Name(),favoritesModel.at(i)->ImgSrc(),favoritesModel.at(i)->Url(),favoritesModel.at(i)->Description()));
-            }
-        }
-    }
-     */
     return FavoritesResult;
 }
 
@@ -115,6 +88,7 @@ void RadioStatiosContainer::searchALL(const QString msg){
         }
     }
 }
+
 void RadioStatiosContainer::searchFavorites(const QString msg){
     FavoritesResult.clear();
     for(int i = 0; i<favoritesModel.count();i++){
@@ -122,4 +96,22 @@ void RadioStatiosContainer::searchFavorites(const QString msg){
             FavoritesResult.append(new Radiostation(favoritesModel.at(i)->Name(),favoritesModel.at(i)->ImgSrc(),favoritesModel.at(i)->Url(),favoritesModel.at(i)->Description()));
         }
     }
+}
+
+void RadioStatiosContainer::playRadioStation(const QString id){
+    mPlayer->stop();
+    for(int i=0;i<radioModel.count();i++){
+        if(radioModel.at(i)->Name() == id){
+            mPlayer->setMedia(QUrl(radioModel.at(i)->Url()));
+            break;
+        }
+    }
+    mPlayer->setVolume(50);
+    mPlayer->play();
+}
+ RadioStatiosContainer::~RadioStatiosContainer(){
+    //delete radioModel, Result, favoritesModel, FavoritesResult, mPlayer, settings;
+}
+void RadioStatiosContainer::togglePlayer(const int id){
+    //if(mPlayer->is)
 }

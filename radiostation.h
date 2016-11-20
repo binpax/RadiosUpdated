@@ -3,9 +3,11 @@
 #include <QObject>
 #include <QList>
 #include "qdebug.h"
-
+#include <QMediaPlayer>
 #include <QSettings>
 #include <QVariant>
+#include <QtCore>
+
 class Radiostation : public QObject
 {
     Q_OBJECT
@@ -51,23 +53,42 @@ signals:
 class RadioStatiosContainer : public QObject
 {
     Q_OBJECT
+signals:
+    void newStatusChanged(const int &subject);
+    //void newStatusChanged(const int &subject);
+public slots:
+void statusChanged(QMediaPlayer::MediaStatus status)
+    {
+        emit newStatusChanged(status);
+    }
 public:
     RadioStatiosContainer();
+    ~RadioStatiosContainer();
+
     void FillingFavorites(const QList<QString> data);
     Q_INVOKABLE void searchALL(const QString ="NULL");
     Q_INVOKABLE void searchFavorites(const QString ="NULL");
     Q_INVOKABLE  QList<QObject *> getRadioList();
     Q_INVOKABLE  QList<QObject *> getFavoritesRadioList();//const QString ="NULL"
-    QList<QObject*> FavoritesResult;
+    Q_INVOKABLE void playRadioStation(const QString id);
+    Q_INVOKABLE void togglePlayer(const int id = 0);
 
-    QList<QObject*> Result;
+    QMediaPlayer *mPlayer;
+
 private:
-    QString filter;
-    QString Favoritesfilter;
+    QList<QObject*> FavoritesResult;
+    QList<QObject*> Result;
     QList<Radiostation *> favoritesModel;
     QList<Radiostation *> radioModel;
     QSettings *settings;
 
+};
+
+class MediaPlayerHundler : public QObject {
+    Q_OBJECT
+    QMediaPlayer *mPlayer;
+public:
+    MediaPlayerHundler(){}
 };
 
 #endif // RADIOSTATION_H

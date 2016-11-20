@@ -2,11 +2,15 @@ import QtQuick 2.0
 import QtQuick.Extras 1.4
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
-
+import QtMultimedia 5.6
 Rectangle {
+    property alias playButton: playButton
     width: swipeView.width
     height: swipeView.height
     color: "transparent"
+    property alias radioimage : radioImage
+    property alias radioname : radioName
+    property alias radiodescription : radioDescription
 
     Image {
         id: radioImage
@@ -21,6 +25,7 @@ Rectangle {
         height: 150
     }
     Text {
+        id: radioName
         text: "<b>"+"name"+"</b>"
         anchors.left : radioImage.right
         anchors.leftMargin: 10
@@ -30,6 +35,7 @@ Rectangle {
         font.pointSize: 25
     }
     Text {
+        id: radioDescription
         text: "<i>This is a Description</i>"
         anchors.left : radioImage.right
         anchors.leftMargin: 10
@@ -42,6 +48,7 @@ Rectangle {
 
         indeterminate: true
         width: parent.width/4
+        visible: false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: playButton.top
         anchors.bottomMargin: 20
@@ -90,5 +97,37 @@ Rectangle {
         anchors.bottomMargin: parent.height/6
         text: checked ? "Stop" : "Play"
         scale: 0.6
+    }
+    Connections{
+        target:radioStatiosContainer
+        onNewStatusChanged: {
+            playerLoadingBar.visible = false
+            playButton.checked = false
+
+            switch(subject){
+            case 1:
+                console.log("case 1")
+                break;
+            case 2:
+                console.log("case 2:")
+                playerLoadingBar.visible = true
+                playButton.checked = true
+                break;
+            case 3:
+                console.log("case 2:")
+                break;
+            case 4:
+                console.log("case 2:")
+                break;
+            case 5:
+                console.log("case 5")
+                break;
+            case 6:
+                console.log("case 6:")
+                playButton.checked = true
+                break;
+            }
+        }
+
     }
 }
