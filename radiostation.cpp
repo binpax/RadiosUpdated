@@ -49,7 +49,7 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Medi1 Andalouse","qrc:/images/Radios/radio-andalousse.png","http://live.medi1.com/Andalouse","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Tarab","qrc:/images/Radios/radio-tarab.png","http://live.medi1.com/Tarab","This is a Description"));
     settings = new QSettings("Ahmed Soft", "Radios");
-    QVariantList reading = settings->value("timeList").toList();
+    QVariantList reading = settings->value("favlist").toList();
     QList<QString> tmp2;
     foreach(QVariant v, reading) tmp2 << v.toString();
     FillingFavorites(tmp2);
@@ -58,7 +58,7 @@ RadioStatiosContainer::RadioStatiosContainer(){
     mPlayer = new QMediaPlayer(this, QMediaPlayer::StreamPlayback);
     connect(mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
             this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
-   // connect(mPlayer, SIGNAL(bufferStatusChanged(int)), slider, SLOT(setValue(int)));
+    // connect(mPlayer, SIGNAL(bufferStatusChanged(int)), slider, SLOT(setValue(int)));
 }
 
 QList<QObject*> RadioStatiosContainer::getRadioList(){
@@ -112,7 +112,7 @@ void RadioStatiosContainer::playRadioStation(const QString id){
     mPlayer->setVolume(50);
     mPlayer->play();
 }
- RadioStatiosContainer::~RadioStatiosContainer(){
+RadioStatiosContainer::~RadioStatiosContainer(){
     //delete radioModel, Result, favoritesModel, FavoritesResult, mPlayer, settings;
 }
 void RadioStatiosContainer::togglePlayer(const int id){
@@ -121,7 +121,7 @@ void RadioStatiosContainer::togglePlayer(const int id){
 
 int RadioStatiosContainer::addtofavorites(const QString station){
     qDebug()<<"add :"<<station;
-    QVariantList reading = settings->value("timeList").toList();
+    QVariantList reading = settings->value("favlist").toList();
     QList<QString> tmp;
     foreach(QVariant v, reading) tmp << v.toString();
     foreach(QString v, tmp) if(station == v) return 0;
@@ -129,14 +129,17 @@ int RadioStatiosContainer::addtofavorites(const QString station){
 
     if (tmp.count()>0)  FillingFavorites(tmp);
 
-    qDebug()<<"saving :"<<tmp.count();
-
     reading.clear();
-    //reading<<"Yabiladi"<<"Hitradio"<<"MedRadio";
 
     foreach(QString v, tmp){ reading << v; qDebug()<<"foreach :"<<v;}
-    settings->setValue("timeList", reading);
+    settings->setValue("favlist", reading);
 
 
+    return 1;
+}
+int RadioStatiosContainer::clairfavorites(){
+    settings->remove("favlist");
+    FavoritesResult.clear();
+    favoritesModel.clear();
     return 1;
 }

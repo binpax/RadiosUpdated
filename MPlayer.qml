@@ -14,7 +14,7 @@ Rectangle {
 
     Image {
         id: radioImage
-        source: "qrc:/images/Radios/radio-220px-Radiomars.gif"
+        //source: "qrc:/images/Radios/radio-220px-Radiomars.gif"
         anchors{
             left: parent.left
             leftMargin: 10

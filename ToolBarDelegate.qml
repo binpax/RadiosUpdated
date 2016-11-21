@@ -26,13 +26,13 @@ ToolBar {
             }
         }
 
-            Label {
-                id: titleLabel
-                text: "<b>Radio Biladi v2</b>"
-                font.pixelSize: 20
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
+        Label {
+            id: titleLabel
+            text: "<b>Radio Biladi v2</b>"
+            font.pixelSize: 20
+            elide: Label.ElideRight
+            horizontalAlignment: Qt.AlignHCenter
+            verticalAlignment: Qt.AlignVCenter
             Layout.fillWidth: true
         }
 
@@ -53,6 +53,12 @@ ToolBar {
                 MenuItem {
                     text: "Settings"
                     onTriggered: settingsPopup.open()
+                }
+                MenuItem {
+                    text: "Supprimer les favoris"
+                    onTriggered: {
+                        radioStatiosContainer.clairfavorites()
+                        radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()                    }
                 }
                 MenuItem {
                     text: "About"
