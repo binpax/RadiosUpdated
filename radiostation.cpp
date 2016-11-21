@@ -66,10 +66,12 @@ QList<QObject*> RadioStatiosContainer::getRadioList(){
 }
 
 QList<QObject*> RadioStatiosContainer::getFavoritesRadioList(){
+
     return FavoritesResult;
 }
 
 void RadioStatiosContainer::FillingFavorites(const QList<QString> data){
+    favoritesModel.clear();
     for(int i =0;i<data.count();i++){
         for(int j=0;i<radioModel.count();j++){
             if(radioModel.at(j)->Name() == data.at(i)){
@@ -78,6 +80,7 @@ void RadioStatiosContainer::FillingFavorites(const QList<QString> data){
             }
         }
     }
+    //qDebug()<<"count :"<<tmp.count();
 }
 
 void RadioStatiosContainer::searchALL(const QString msg){
@@ -92,7 +95,7 @@ void RadioStatiosContainer::searchALL(const QString msg){
 void RadioStatiosContainer::searchFavorites(const QString msg){
     FavoritesResult.clear();
     for(int i = 0; i<favoritesModel.count();i++){
-        if(favoritesModel.at(i)->Name().contains(msg,Qt::CaseInsensitive)){
+        if(favoritesModel.at(i)->Name().contains(msg,Qt::CaseInsensitive) || msg == "NULL"){
             FavoritesResult.append(new Radiostation(favoritesModel.at(i)->Name(),favoritesModel.at(i)->ImgSrc(),favoritesModel.at(i)->Url(),favoritesModel.at(i)->Description()));
         }
     }
@@ -114,4 +117,17 @@ void RadioStatiosContainer::playRadioStation(const QString id){
 }
 void RadioStatiosContainer::togglePlayer(const int id){
     //if(mPlayer->is)
+}
+
+int RadioStatiosContainer::addtofavorites(const QString station){
+    qDebug()<<"add :"<<station;
+    QVariantList reading = settings->value("timeList").toList();
+    QList<QString> tmp;
+    foreach(QVariant v, reading) tmp << v.toString();
+    foreach(QString v, tmp) if(station == v) return 0;
+    tmp.append(station);
+    qDebug()<<"count :"<<tmp.count();
+
+    FillingFavorites(tmp);
+    return 1;
 }

@@ -86,10 +86,11 @@ ApplicationWindow {
         }
         Text {
             id: name
-            text: radioPlayerPAGE.radioname.text //qsTr("Station Name")
+            text: radioPlayerPAGE.radioname.text  //qsTr("Station Name") radioPlayerPAGE.radioname.text
             anchors.verticalCenter: barPlayButton.verticalCenter
             anchors.left:barPlayButton.right
             anchors.leftMargin: 15
+
         }
         MouseArea{
             anchors{

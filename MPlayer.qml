@@ -26,7 +26,7 @@ Rectangle {
     }
     Text {
         id: radioName
-        text: "<b>"+"name"+"</b>"
+        text: "<b>"+ qsTr("choisissez une station") +"</b>"
         anchors.left : radioImage.right
         anchors.leftMargin: 10
         anchors.top: radioImage.top
@@ -36,7 +36,7 @@ Rectangle {
     }
     Text {
         id: radioDescription
-        text: "<i>This is a Description</i>"
+        //text: "<i>This is a Description</i>"
         anchors.left : radioImage.right
         anchors.leftMargin: 10
         anchors.bottom: radioImage.bottom
@@ -71,6 +71,11 @@ Rectangle {
 
         }
         color: pressed ? "#d6d6d6" : "transparent"
+        onClicked: {
+            radioStatiosContainer.addtofavorites(radioName.text)
+            radioStatiosContainer.searchFavorites()
+            radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()
+        }
     }
     FlatButton {
         width: parent.width / 7
@@ -89,6 +94,8 @@ Rectangle {
 
         }
         color: pressed ? "#d6d6d6" : "transparent"
+
+
     }
     ToggleButton{
         id:playButton
