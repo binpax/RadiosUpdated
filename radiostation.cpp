@@ -126,8 +126,17 @@ int RadioStatiosContainer::addtofavorites(const QString station){
     foreach(QVariant v, reading) tmp << v.toString();
     foreach(QString v, tmp) if(station == v) return 0;
     tmp.append(station);
-    qDebug()<<"count :"<<tmp.count();
 
-    FillingFavorites(tmp);
+    if (tmp.count()>0)  FillingFavorites(tmp);
+
+    qDebug()<<"saving :"<<tmp.count();
+
+    reading.clear();
+    //reading<<"Yabiladi"<<"Hitradio"<<"MedRadio";
+
+    foreach(QString v, tmp){ reading << v; qDebug()<<"foreach :"<<v;}
+    settings->setValue("timeList", reading);
+
+
     return 1;
 }
