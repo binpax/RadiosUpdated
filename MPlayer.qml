@@ -104,6 +104,7 @@ Rectangle {
         anchors.bottomMargin: parent.height/6
         text: checked ? "Stop" : "Play"
         scale: 0.6
+        onClicked: checked = radioStatiosContainer.togglePlayer()
     }
     Connections{
         target:radioStatiosContainer

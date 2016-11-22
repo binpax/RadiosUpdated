@@ -15,13 +15,15 @@ ToolBar {
                 fillMode: Image.Pad
                 horizontalAlignment: Image.AlignHCenter
                 verticalAlignment: Image.AlignVCenter
-                source: timer.running? "qrc:/images/arrow_left.png" : "qrc:/images/drawer.png"
+                source: timer.running? "qrc:/images/arrow_left.png" : (swipeView.currentIndex == 2 ? "qrc:/images/arrow_left.png" : "qrc:/images/drawer.png")
             }
             onClicked:{
                 if(timer.running){
                     timer.stop()
                     searchField.visible = false
-                }else
+                }else if(swipeView.currentIndex == 2)
+                    swipeView.currentIndex = 1
+                else
                     drawer.open()
             }
         }

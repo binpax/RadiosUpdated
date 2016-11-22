@@ -47,7 +47,7 @@ ApplicationWindow {
 
         width: parent.width
         height: parent.height - playerbar.height
-        currentIndex: tabBar.currentIndex
+        //currentIndex: tabBar.currentIndex
 
         FavoritesList{id:radiolistFAVORITES}
         RadioList{id:radiolistALL}
@@ -58,6 +58,7 @@ ApplicationWindow {
             else createAnimation.to = 1.0
             createAnimation.start()
         }
+        //currentIndex: swipeView.currentIndex
     }
 
     Rectangle{
@@ -83,6 +84,10 @@ ApplicationWindow {
             text: checked ? "Stop" : "Play"
             checked: radioPlayerPAGE.playButton.checked
             height: parent.height * 0.9
+            onClicked: {
+                checked = radioStatiosContainer.togglePlayer()
+                radioPlayerPAGE.playButton.checked = checked
+            }
         }
         Text {
             id: name
@@ -101,6 +106,7 @@ ApplicationWindow {
             }
             onClicked: {
                 //openmediaplayer
+                swipeView.currentIndex = 2
             }
         }
 
@@ -113,6 +119,9 @@ ApplicationWindow {
         }
         TabButton {
             text: "Stations list"
+        }
+        onCurrentIndexChanged: {
+            swipeView.currentIndex = currentIndex
         }
     }
     Timer{

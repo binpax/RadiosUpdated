@@ -71,7 +71,9 @@ public:
     Q_INVOKABLE  QList<QObject *> getRadioList();
     Q_INVOKABLE  QList<QObject *> getFavoritesRadioList();//const QString ="NULL"
     Q_INVOKABLE void playRadioStation(const QString id);
-    Q_INVOKABLE void togglePlayer(const int id = 0);
+    Q_INVOKABLE int togglePlayer(const int id = 0);
+    Q_INVOKABLE int isplaying();
+
     Q_INVOKABLE int addtofavorites(const QString ="NULL");
     Q_INVOKABLE int clairfavorites();
 

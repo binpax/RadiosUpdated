@@ -79,7 +79,7 @@ ListView {
                     radioStatiosContainer.playRadioStation(model.modelData.Name)
                     radioPlayerPAGE.radioimage.source = model.modelData.ImgSrc
                     radioPlayerPAGE.radioname.text = model.modelData.Name
-                    radioPlayerPAGE.radiodescription.text = model.modelData.Description
+                    //radioPlayerPAGE.radiodescription.text = model.modelData.Description
                     swipeView.currentIndex = 2
                     window= "hello"
                 }

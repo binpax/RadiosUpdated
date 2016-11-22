@@ -115,12 +115,19 @@ void RadioStatiosContainer::playRadioStation(const QString id){
 RadioStatiosContainer::~RadioStatiosContainer(){
     //delete radioModel, Result, favoritesModel, FavoritesResult, mPlayer, settings;
 }
-void RadioStatiosContainer::togglePlayer(const int id){
-    //if(mPlayer->is)
+int RadioStatiosContainer::togglePlayer(const int id){
+    if(mPlayer->state() == QMediaPlayer::PlayingState || mPlayer->state() == QMediaPlayer::PausedState){
+        mPlayer->stop();
+        return 0;
+    }else if(mPlayer->isAudioAvailable())
+        mPlayer->play();
+    return 1;
+}
+int RadioStatiosContainer::isplaying(){
+    //if(mPlayer->state())
 }
 
 int RadioStatiosContainer::addtofavorites(const QString station){
-    qDebug()<<"add :"<<station;
     QVariantList reading = settings->value("favlist").toList();
     QList<QString> tmp;
     foreach(QVariant v, reading) tmp << v.toString();
