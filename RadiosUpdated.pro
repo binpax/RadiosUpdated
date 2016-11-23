@@ -1,12 +1,24 @@
-QT += quick quickcontrols2 androidextras core widgets multimedia qml
+QT += quick quickcontrols2 core widgets multimedia qml
+
+android {
+    message("* Using settings for Android.")
+    QT += androidextras
+HEADERS += notificationclient.h \
+    android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h
+SOURCES += main.cpp \
+    notificationclient.cpp \
+    android/src/com_ahmed_qandroidresultreceiver_jniexport_jniexport.cpp \
+    radiostation.cpp
+
+DISTFILES += android/AndroidManifest.xml \
+    android/src/com/ahmed/radios/NotificationClient.java \
+    android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java
+}
 
 CONFIG += debug
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    notificationclient.cpp \
-    android/src/com_ahmed_qandroidresultreceiver_jniexport_jniexport.cpp \
-    radiostation.cpp
     radiostation.cpp
 
 RESOURCES += qml.qrc
@@ -19,16 +31,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    android/AndroidManifest.xml \
-    android/src/com/ahmed/radios/NotificationClient.java \
-    android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java \
-    RadioList.qml \
+DISTFILES += RadioList.qml \
     ToolBarDelegate.qml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-HEADERS += \
-    notificationclient.h \
-    android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h \
-    radiostation.h
+HEADERS +=  radiostation.h

@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <QVariant>
 #include <QtCore>
+#include "android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h"
 
 class Radiostation : public QObject
 {
@@ -16,6 +17,7 @@ class Radiostation : public QObject
     Q_PROPERTY(QString Url READ Url NOTIFY textChanged )
     Q_PROPERTY(QString Description READ Description NOTIFY textChanged )
     Q_PROPERTY(QString countR READ countR NOTIFY textChanged )
+
 
 public:
     Radiostation(QString ,QString ,QString ,QString );
@@ -56,6 +58,8 @@ class RadioStatiosContainer : public QObject
 signals:
     void newStatusChanged(const int &subject);
     //void newStatusChanged(const int &subject);
+    void JniMsgChanged(const QString &subject);
+
 public slots:
 void statusChanged(QMediaPlayer::MediaStatus status)
     {
@@ -76,6 +80,10 @@ public:
     Q_INVOKABLE int clairfavorites();
 
     QMediaPlayer *mPlayer;
+
+   static void JNIstringreceiver( QString msg){
+        emit JniMsgChanged(msg);
+    }
 
 private:
     QList<QObject*> FavoritesResult;
