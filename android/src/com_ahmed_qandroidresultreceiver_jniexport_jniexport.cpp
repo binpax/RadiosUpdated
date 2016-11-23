@@ -15,7 +15,7 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
   (JNIEnv *env, jobject var2, jstring string){
 
     QString qstr(env->GetStringUTFChars(string, 0));
-
+    delete var2;
     QMessageBox msgBox;
     msgBox.setText("JE suis de retour" + qstr);
     msgBox.exec();
