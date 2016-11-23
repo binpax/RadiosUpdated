@@ -53,10 +53,6 @@ ToolBar {
                 transformOrigin: Menu.TopRight
 
                 MenuItem {
-                    text: "Settings"
-                    onTriggered: settingsPopup.open()
-                }
-                MenuItem {
                     text: "Supprimer les favoris"
                     onTriggered: {
                         radioStatiosContainer.clairfavorites()

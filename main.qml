@@ -36,12 +36,7 @@ ApplicationWindow {
         visible: false
     }
     header: ToolBarDelegate{}
-    Drawer {
-        id: drawer
-        width: Math.min(window.width, window.height) / 3 * 2
-        height: window.height
-        DrawerDelegate{}
-    }
+
     SwipeView {
         id: swipeView
 
