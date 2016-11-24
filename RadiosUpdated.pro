@@ -1,9 +1,10 @@
-QT += quick quickcontrols2 multimedia qml
+QT += quick quickcontrols2 multimedia qml androidextras
 
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    radiostation.cpp
+    radiostation.cpp \
+    android/src/com_ahmed_qandroidresultreceiver_jniexport_jniexport.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,7 +18,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     RadioList.qml \
-    ToolBarDelegate.qml
+    ToolBarDelegate.qml \
+    android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java \
+    android/src/com/ahmed/radios/NotificationClient.java \
+    android/AndroidManifest.xml
 
 HEADERS += \
-    radiostation.h
+    radiostation.h \
+    android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h

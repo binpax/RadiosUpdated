@@ -2,11 +2,11 @@
 #define RADIOSTATION_H
 #include <QObject>
 #include <QList>
-#include "qdebug.h"
 #include <QMediaPlayer>
 #include <QSettings>
 #include <QVariant>
 #include <QtCore>
+#include "android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h"
 
 class Radiostation : public QObject
 {
