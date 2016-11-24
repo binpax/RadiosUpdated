@@ -8,7 +8,11 @@ import QtQuick.Extras 1.4
 ApplicationWindow {
     id:window
 
-    property int  cardFixedSize: 100
+    property string jniMsg
+    onJniMsgChanged:{
+        radioPlayerPAGE.radioname.text = jniMsg
+        console.log("jni")
+    }
     visible: true
     width: 720
     height: 1280
