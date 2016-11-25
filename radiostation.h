@@ -8,6 +8,12 @@
 #include <QtCore>
 #include "android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h"
 
+
+#define AUDIOFOCUS_GAIN 1
+#define AUDIOFOCUS_LOSS -1
+#define AUDIOFOCUS_LOSS_TRANSIENT -2
+#define AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -3
+
 class Radiostation : public QObject
 {
     Q_OBJECT

@@ -21,8 +21,18 @@ DISTFILES += \
     ToolBarDelegate.qml \
     android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java \
     android/src/com/ahmed/radios/NotificationClient.java \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    android/AndroidManifest.xml \
+    android/res/values/libs.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/res/drawable/icon.png
 
 HEADERS += \
     radiostation.h \
     android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
