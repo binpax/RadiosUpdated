@@ -6,7 +6,8 @@
 #include <QSettings>
 #include <QVariant>
 #include <QtCore>
-#include "android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h"
+#include <QtAndroidExtras/QAndroidJniObject>
+#include "qdebug.h"
 
 
 #define AUDIOFOCUS_GAIN 1
@@ -100,5 +101,20 @@ class MediaPlayerHundler : public QObject {
 public:
     MediaPlayerHundler(){}
 };
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     com_ahmed_QAndroidResultReceiver_jniExport_jniExport
+ * Method:    intMethod
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_intMethod
+  (JNIEnv *, jobject, jint);
 
+JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_StringReceiver
+  (JNIEnv *var1, jobject var2, jstring string);
+#ifdef __cplusplus
+}
+#endif
 #endif // RADIOSTATION_H

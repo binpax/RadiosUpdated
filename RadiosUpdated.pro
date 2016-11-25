@@ -31,7 +31,6 @@ DISTFILES += \
     android/res/drawable/icon.png
 
 HEADERS += \
-    radiostation.h \
-    android/src/com_ahmed_QAndroidResultReceiver_jniExport_jniExport.h
+    radiostation.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
