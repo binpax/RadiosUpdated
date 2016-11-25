@@ -37,8 +37,11 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
         if(lastfocus) mMediaplayer->play();
         lastfocus =0;
         break;
+    default:
+        rootObject->setProperty("command", focusChange);
+        break;
     }
-    //lastfocus = AUDIOFOCUS_LOSS;
+    //lastfocus = AUDIOFOCUS_LOSS; BACK_BUTTON_PRESSED
 
     return 1;
 }

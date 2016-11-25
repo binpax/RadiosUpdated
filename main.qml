@@ -9,10 +9,65 @@ ApplicationWindow {
     id:window
 
     property string jniMsg
+    property int command : 0
     onJniMsgChanged:{
         radioPlayerPAGE.radioname.text = jniMsg
-        console.log("jni")
     }
+    onCommandChanged: {
+        switch(command) {
+        case 2:
+            console.log("about command")
+            confirm_dialog.open()
+            break;
+        case 3:
+            toolBarDelegate.optionsMenu.open()
+            break;
+        }
+        command = 0;
+
+    }
+
+    Popup {
+        id: confirm_dialog
+        x: (window.width - width) / 2
+        y: window.height / 2 - height/2
+        width: settingsColumn + settingsColumn.spacing*2
+        height: settingsColumn.implicitHeight + topPadding + bottomPadding
+        modal: true
+        focus: true
+        //anchors.centerIn: parent
+
+        contentItem: ColumnLayout {
+            id: settingsColumn
+            spacing: 50
+
+            Label {
+                text: "voulez-vous vraiment quitter ?"
+                font.bold: true
+                font.pointSize: 20
+            }
+
+            RowLayout{
+                id : actionbuttons
+                spacing: 20
+                Button{
+                    text:"executer en arriere plan"
+                    onClicked: {
+                        confirm_dialog.close()
+                        radioStatiosContainer.exitApp(2)
+                    }
+                }
+                Button{
+                    text:"quitter"
+                    onClicked: {
+                        confirm_dialog.close()
+                        radioStatiosContainer.exitApp(1)
+                    }
+                }
+            }
+        }
+    }
+
     visible: true
     width: 720
     height: 1280
@@ -39,7 +94,7 @@ ApplicationWindow {
         anchors.horizontalCenter: searchBg.horizontalCenter
         visible: false
     }
-    header: ToolBarDelegate{}
+    header: ToolBarDelegate{id :toolBarDelegate}
 
     SwipeView {
         id: swipeView
@@ -130,6 +185,8 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
+        confirm_dialog.open()
+
         //radioStatiosContainer.clear()
     }
 }

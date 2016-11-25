@@ -100,6 +100,13 @@ void RadioStatiosContainer::searchFavorites(const QString msg){
         }
     }
 }
+void RadioStatiosContainer::exitApp(const int cmd){
+    #ifdef Q_OS_ANDROID
+    QAndroidJniObject::callStaticMethod<void>("com/ahmed/radios/NotificationClient",
+                                              "exitapplication",
+                                              "(I)V",cmd);
+    #endif
+}
 
 void RadioStatiosContainer::playRadioStation(const QString id){
 #ifdef Q_OS_ANDROID

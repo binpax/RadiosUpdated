@@ -50,16 +50,21 @@
 
 package com.ahmed.radios;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.ahmed.QAndroidResultReceiver.jniExport.jniExport;
+
+import org.qtproject.qt5.android.bindings.QtApplication;
 
 import java.util.HashMap;
 
@@ -71,14 +76,15 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private static Notification.Builder m_builder;
     private static NotificationClient m_instance;
     private static jniExport m_jniExport;
-
+    private BooVariable bv;
     private AudioManager mAudioManager;
     private AudioFocusChangeListenerImpl mAudioFocusChangeListener;
     private boolean mFocusGranted, mFocusChanged;
-
+    private Activity mActivity;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //m_jniExport.intMethod(12);
+        mActivity = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mAudioFocusChangeListener = new AudioFocusChangeListenerImpl();
         int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener,
@@ -97,6 +103,14 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         Log.i(TAG, message);
 
         m_jniExport = new jniExport();
+
+        bv = new BooVariable();
+        bv.setListener(new BooVariable.ChangeListener() {
+            @Override
+            public void onChange() {
+                Toast.makeText(NotificationClient.this,"blah", Toast.LENGTH_LONG).show();
+            }
+        });
         };
 
     public NotificationClient()
@@ -142,6 +156,20 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
         //m_jniExport.StringReceiver(metaD);
     }
+    public static void exitapplication(int cmd)
+    {
+        //getActivity().finish();
+        if(cmd == 1)System.exit(0);
+        else if (cmd == 2){
+            Log.i("getmetadata", "_______________AAAAA i.setAction(Intent.ACTION_MAIN); _____________________________" + cmd);
+
+            Intent i = new Intent();
+            i.setAction(Intent.ACTION_MAIN);
+            i.addCategory(Intent.CATEGORY_HOME);
+        }
+        BooVariable bvs = new BooVariable();
+        bvs.setBoo(true);
+    }
 
 
     private class AudioFocusChangeListenerImpl implements AudioManager.OnAudioFocusChangeListener {
@@ -154,5 +182,54 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     protected void onDestroy() {
         super.onDestroy();
         mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ( (keyCode == KeyEvent.KEYCODE_BACK) )
+        {
+            Log.i("getmetadata", "__________((((((((((((((((((((((((())))))))))))))))))))_____AAAAA ");
+            m_jniExport.intMethod(2);
+        }else if((keyCode == KeyEvent.KEYCODE_MENU)){
+            m_jniExport.intMethod(3);
+
+        }else{
+            if (QtApplication.m_delegateObject != null && QtApplication.onKeyDown != null)
+                return (Boolean) QtApplication.invokeDelegateMethod(QtApplication.onKeyDown, keyCode, event);
+            else
+                return super.onKeyDown(keyCode, event);
+        }
+        return true;
+    }
+    public boolean super_onKeyDown(int keyCode, KeyEvent event)
+    {
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+}
+class BooVariable {
+    private static boolean boo = false;
+    private static ChangeListener listener;
+
+    public boolean isBoo() {
+        return boo;
+    }
+
+    public void setBoo(boolean boo) {
+        this.boo = boo;
+        if (listener != null) listener.onChange();
+    }
+
+    public ChangeListener getListener() {
+        return listener;
+    }
+
+    public void setListener(ChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ChangeListener {
+        void onChange();
     }
 }

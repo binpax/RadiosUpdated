@@ -5,7 +5,7 @@ import QtQuick.Controls.Material 2.0
 
 ToolBar {
     Material.foreground: "white"
-
+    property alias optionsMenu: optionsMenu
     RowLayout {
         spacing: 20
         anchors.fill: parent

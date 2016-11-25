@@ -17,6 +17,8 @@
 #define AUDIOFOCUS_LOSS -1
 #define AUDIOFOCUS_LOSS_TRANSIENT -2
 #define AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -3
+#define BACK_BUTTON_PRESSED 2
+
 
 class Radiostation : public QObject
 {
@@ -83,6 +85,7 @@ public:
     Q_INVOKABLE void playRadioStation(const QString id);
     Q_INVOKABLE int togglePlayer(const int id = 0);
     Q_INVOKABLE int isplaying();
+    Q_INVOKABLE void exitApp(const int);
 
     Q_INVOKABLE int addtofavorites(const QString ="NULL");
     Q_INVOKABLE int clairfavorites();
