@@ -6,7 +6,10 @@
 #include <QSettings>
 #include <QVariant>
 #include <QtCore>
-#include <QtAndroidExtras/QAndroidJniObject>
+//#ifdef Q_OS_ANDROID
+//#include <QtAndroidExtras/QAndroidJniObject>
+//#endif
+
 #include "qdebug.h"
 
 
@@ -101,20 +104,15 @@ class MediaPlayerHundler : public QObject {
 public:
     MediaPlayerHundler(){}
 };
-#ifdef __cplusplus
+#ifdef Q_OS_ANDROID
+#include <QtAndroidExtras/QAndroidJniObject>
+
 extern "C" {
-#endif
-/*
- * Class:     com_ahmed_QAndroidResultReceiver_jniExport_jniExport
- * Method:    intMethod
- * Signature: (I)I
- */
 JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_intMethod
   (JNIEnv *, jobject, jint);
 
 JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_StringReceiver
   (JNIEnv *var1, jobject var2, jstring string);
-#ifdef __cplusplus
 }
 #endif
 #endif // RADIOSTATION_H

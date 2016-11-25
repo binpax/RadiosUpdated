@@ -5,25 +5,9 @@
 #include "radiostation.h"
 #include <QQmlContext>
 QObject *rootObject;
-void startJavaInterface();
 QMediaPlayer *mMediaplayer;
-int main(int argc, char *argv[])
-{
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);QQuickStyle::setStyle("Material");
-    RadioStatiosContainer Container;
-    mMediaplayer = Container.mPlayer;
-    QQmlApplicationEngine engine;
 
-    QQmlContext *ctxt = engine.rootContext();
-    ctxt->setContextProperty("radioStatiosContainer", &Container);
-    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-
-    rootObject = engine.rootObjects().first();
-    rootObject->setProperty("jniMsg", "true");
-    startJavaInterface();
-    return app.exec();
-}
+#ifdef Q_OS_ANDROID
 
 void startJavaInterface(){
     QAndroidJniObject javaNotification = QAndroidJniObject::fromString("m_notification");
@@ -69,3 +53,25 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
 
     return 1;
 }
+#endif
+int main(int argc, char *argv[])
+{
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication app(argc, argv);QQuickStyle::setStyle("Material");
+    RadioStatiosContainer Container;
+    mMediaplayer = Container.mPlayer;
+    QQmlApplicationEngine engine;
+
+    QQmlContext *ctxt = engine.rootContext();
+    ctxt->setContextProperty("radioStatiosContainer", &Container);
+    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
+
+    rootObject = engine.rootObjects().first();
+    rootObject->setProperty("jniMsg", "true");
+#ifdef Q_OS_ANDROID
+    startJavaInterface();
+#endif
+
+    return app.exec();
+}
+

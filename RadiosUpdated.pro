@@ -1,5 +1,8 @@
-QT += quick quickcontrols2 multimedia qml androidextras
-
+QT += quick quickcontrols2 multimedia qml
+android {
+    message("* Using settings for Android.")
+    QT += androidextras
+}
 CONFIG += c++11
 
 SOURCES += main.cpp \
