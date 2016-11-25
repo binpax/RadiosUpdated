@@ -102,15 +102,22 @@ void RadioStatiosContainer::searchFavorites(const QString msg){
 }
 
 void RadioStatiosContainer::playRadioStation(const QString id){
+    QAndroidJniObject mediaMetadataRetriever;
     mPlayer->stop();
     for(int i=0;i<radioModel.count();i++){
         if(radioModel.at(i)->Name() == id){
             mPlayer->setMedia(QUrl(radioModel.at(i)->Url()));
+            mediaMetadataRetriever = QAndroidJniObject::fromString(radioModel.at(i)->Url());
             break;
         }
     }
-    mPlayer->setVolume(50);
+    mPlayer->setVolume(100);
     mPlayer->play();
+    //______get the metadate string based in the URL
+    QAndroidJniObject::callStaticMethod<void>("com/ahmed/radios/NotificationClient",
+                                              "getmetadata",
+                                              "(Ljava/lang/String;)V",
+                                              mediaMetadataRetriever.object<jstring>());
 }
 RadioStatiosContainer::~RadioStatiosContainer(){
     //delete radioModel, Result, favoritesModel, FavoritesResult, mPlayer, settings;

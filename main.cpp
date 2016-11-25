@@ -54,8 +54,18 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
         lastfocus =0;
         break;
     }
-    lastfocus = AUDIOFOCUS_LOSS;
-    rootObject->setProperty("jniMsg", QString::number(focusChange));
+    //lastfocus = AUDIOFOCUS_LOSS;
+
+    return 1;
+}
+
+
+JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_StringReceiver
+(JNIEnv *env, jobject var2, jstring string){
+
+    QString metadatastring(env->GetStringUTFChars(string, 0));
+    qDebug()<<"niExport_StringReceiver "<<metadatastring;
+    rootObject->setProperty("jniMsg", metadatastring);
 
     return 1;
 }

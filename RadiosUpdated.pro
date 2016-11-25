@@ -3,8 +3,7 @@ QT += quick quickcontrols2 multimedia qml androidextras
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    radiostation.cpp \
-    android/src/com_ahmed_qandroidresultreceiver_jniexport_jniexport.cpp
+    radiostation.cpp
 
 RESOURCES += qml.qrc
 
