@@ -16,7 +16,6 @@ ApplicationWindow {
     onCommandChanged: {
         switch(command) {
         case 2:
-            console.log("about command")
             confirm_dialog.open()
             break;
         case 3:
@@ -185,7 +184,6 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        confirm_dialog.open()
 
         //radioStatiosContainer.clear()
     }

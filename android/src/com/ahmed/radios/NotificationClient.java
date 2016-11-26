@@ -58,6 +58,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -76,7 +78,6 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private static Notification.Builder m_builder;
     private static NotificationClient m_instance;
     private static jniExport m_jniExport;
-    private BooVariable bv;
     private AudioManager mAudioManager;
     private AudioFocusChangeListenerImpl mAudioFocusChangeListener;
     private boolean mFocusGranted, mFocusChanged;
@@ -104,13 +105,6 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
         m_jniExport = new jniExport();
 
-        bv = new BooVariable();
-        bv.setListener(new BooVariable.ChangeListener() {
-            @Override
-            public void onChange() {
-                Toast.makeText(NotificationClient.this,"blah", Toast.LENGTH_LONG).show();
-            }
-        });
         };
 
     public NotificationClient()
@@ -124,7 +118,7 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         //new NotificationClient();
         //jniExport sendingData = new jniExport();
         //jniExport.intMethod(45);
-        Log.i("HELOOOOOO FROM JAVA", "__________________________\n");
+        //Log.i("HELOOOOOO FROM JAVA", "__________________________\n");
 
         if (m_notificationManager == null) {
             m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -142,7 +136,6 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         //new NotificationClient();
         //jniExport sendingData = new jniExport();
         //jniExport.intMethod(45);
-        Log.i("getmetadata", "__________((((((((((((((((((((((((())))))))))))))))))))_____AAAAA "+ s);
         MediaMetadataRetriever lMetaData = new MediaMetadataRetriever();
         lMetaData.setDataSource(s, new HashMap<String, String>());
         String mArtist = lMetaData.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
@@ -152,23 +145,20 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         String mGenre = lMetaData.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
         String mSongNumber = lMetaData.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER);
         String mYear = lMetaData.extractMetadata(MediaMetadataRetriever.METADATA_KEY_YEAR);
-        Log.i("getmetadata", "_______________AAAAA "+ mGenre + mArtist + mTitle + mAlbum+mAlbumArtist+mYear +mSongNumber);
+        //Log.i("getmetadata", "_______________AAAAA "+ mGenre + mArtist + mTitle + mAlbum+mAlbumArtist+mYear +mSongNumber);
 
         //m_jniExport.StringReceiver(metaD);
     }
-    public static void exitapplication(int cmd)
+    public int exitapplication(int cmd)
     {
-        //getActivity().finish();
-        if(cmd == 1)System.exit(0);
+        if(cmd == 1){this.finish();System.exit(0);}
         else if (cmd == 2){
-            Log.i("getmetadata", "_______________AAAAA i.setAction(Intent.ACTION_MAIN); _____________________________" + cmd);
-
             Intent i = new Intent();
             i.setAction(Intent.ACTION_MAIN);
             i.addCategory(Intent.CATEGORY_HOME);
+            startActivity(i);
         }
-        BooVariable bvs = new BooVariable();
-        bvs.setBoo(true);
+        return 0;
     }
 
 
@@ -188,7 +178,6 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     {
         if ( (keyCode == KeyEvent.KEYCODE_BACK) )
         {
-            Log.i("getmetadata", "__________((((((((((((((((((((((((())))))))))))))))))))_____AAAAA ");
             m_jniExport.intMethod(2);
         }else if((keyCode == KeyEvent.KEYCODE_MENU)){
             m_jniExport.intMethod(3);
@@ -204,32 +193,5 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     public boolean super_onKeyDown(int keyCode, KeyEvent event)
     {
         return super.onKeyDown(keyCode, event);
-    }
-
-
-}
-class BooVariable {
-    private static boolean boo = false;
-    private static ChangeListener listener;
-
-    public boolean isBoo() {
-        return boo;
-    }
-
-    public void setBoo(boolean boo) {
-        this.boo = boo;
-        if (listener != null) listener.onChange();
-    }
-
-    public ChangeListener getListener() {
-        return listener;
-    }
-
-    public void setListener(ChangeListener listener) {
-        this.listener = listener;
-    }
-
-    public interface ChangeListener {
-        void onChange();
     }
 }

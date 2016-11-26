@@ -108,7 +108,8 @@ public:
     MediaPlayerHundler(){}
 };
 #ifdef Q_OS_ANDROID
-#include <QtAndroidExtras/QAndroidJniObject>
+#include <QtAndroid>
+
 
 extern "C" {
 JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport_intMethod
