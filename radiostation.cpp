@@ -10,7 +10,7 @@ Radiostation::Radiostation(QString var,QString Img,QString linkst,QString desc)
 
 RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.jpg","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8000/;","This is a Description"));
+    radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.jpg","http://37.187.146.76:8000/;","This is a Description"));
     radioModel.append(new Radiostation("Hitradio","qrc:/images/Radios/radio-hit-radio.jpg","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
     radioModel.append(new Radiostation("Medi 1","qrc:/images/Radios/radio-medi-1-radio.png","http://media.yabiladi.com:8000","This is a Description"));
     radioModel.append(new Radiostation("Radio 2M","qrc:/images/Radios/radio-2m.png","http://radio2m.scdn.arkena.com/live.mp3","This is a Description"));
@@ -22,7 +22,7 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Radio Plus","qrc:/images/Radios/radioplus.jpeg","http://149.202.139.76:8000/marrakech.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio MFM","qrc:/images/Radios/radio-mfm.png","http://radio.mfmradio.ma/casa.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio Mars","qrc:/images/Radios/radiomars.png","http://radiomars.ice.infomaniak.ch/radiomars-128.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Radio Chabab","qrc:/images/Radios/radiochabab1.jpg","http://listen.radionomy.com/rjm1","This is a Description"));
+    radioModel.append(new Radiostation("Radio Chabab","qrc:/images/Radios/radiochabab1.png","http://listen.radionomy.com/rjm1","This is a Description"));
     radioModel.append(new Radiostation("Aswat","qrc:/images/Radios/radio-aswat.jpg","http://broadcaster.infomaniak.ch/aswat-high.mp3","This is a Description"));
     radioModel.append(new Radiostation("capradio","qrc:/images/Radios/radio-capradio.png","","This is a Description"));
     radioModel.append(new Radiostation("Radio Orient","qrc:/images/Radios/radio-orient-fm.png","http://stream3.broadcast-associes.com:8405/Radio-Orient","This is a Description"));
