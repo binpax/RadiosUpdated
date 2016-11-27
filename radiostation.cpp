@@ -168,3 +168,25 @@ int RadioStatiosContainer::clairfavorites(){
     favoritesModel.clear();
     return 1;
 }
+void RadioStatiosContainer::schedule(const int interval){
+    qDebug()<<"RadioStatiosContainer::schedule(const int interval)";
+    //Worker *worker = new Worker;
+    //worker->moveToThread(&workerThread);
+    //connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
+    //connect(this, &RadioStatiosContainer::operate, worker, &Worker::doWork);
+    //connect(worker, &Worker::resultReady, this, &RadioStatiosContainer::scheduletimeout);
+    //qDebug()<<"connect(worker, &Worker::resultReady, this, &RadioStatiosContainer::scheduletimeout);";
+    //emit operate();
+
+    workerThread = new WorkerThread();
+    connect(workerThread, &WorkerThread::resultReady, this, &RadioStatiosContainer::scheduletimeout);
+    connect(this, &RadioStatiosContainer::operate, workerThread, &WorkerThread::setinterval);
+    connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
+    emit operate(interval);
+    workerThread->start();
+    //QThread::sleep(5);
+    //
+}
+void RadioStatiosContainer::scheduleInterruption(){
+    workerThread->InterruptionRequested();
+}
