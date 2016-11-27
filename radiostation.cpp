@@ -149,7 +149,7 @@ int RadioStatiosContainer::addtofavorites(const QString station){
     QVariantList reading = settings->value("favlist").toList();
     QList<QString> tmp;
     foreach(QVariant v, reading) tmp << v.toString();
-    foreach(QString v, tmp) if(station == v) return 0;
+    foreach(QString v, tmp) if(station == v && station == "") return 0;
     tmp.append(station);
 
     if (tmp.count()>0)  FillingFavorites(tmp);

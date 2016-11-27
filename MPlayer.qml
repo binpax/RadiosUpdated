@@ -164,37 +164,26 @@ Rectangle {
         }
     }
     Rectangle{
-        id: sleeping_rect
+        id: favorite_rect
         color: "black"
         opacity: 0.4
         radius: 10
-        width: sleepinglabel.implicitWidth + sleepinglabel.font.pixelSize
-        height: sleepinglabel.implicitHeight + sleepinglabel.font.pixelSize
-        anchors.top : flatButton_sleeping_mode.bottom
-        anchors.right : parent.right
-        anchors.topMargin: sleepinglabel.font.pixelSize
-    }
-    Text {
-        id: sleepinglabel
-        text: qsTr("mode de sommeil")
-        color: "white"
-        anchors.centerIn: sleeping_rect
-    }
-    Button{
-        id: sleep_mode_cancel
-        text: "annuler"
-        anchors.horizontalCenter: sleeping_rect.horizontalCenter
-        anchors.top : sleeping_rect.bottom
-        anchors.topMargin: sleepinglabel.font.pixelSize
-        visible: false
-        onClicked: {
-            visible = false
-            radioStatiosContainer.scheduleInterruption()
-            tumbler.istimerworking = false
-            sleepinglabel.text= qsTr("mode de sommeil")
+        width: favoritelabel.implicitWidth + favoritelabel.font.pixelSize
+        height: favoritelabel.implicitHeight + favoritelabel.font.pixelSize
+        anchors.top : flatButton_favorite.bottom
+        anchors.left : parent.left
+        anchors.topMargin: favoritelabel.font.pixelSize
+        Component.onCompleted: {
+            if(flatButton_favorite.anchors.rightMargin<= width/2)anchors.left = parent.left
+            else anchors.horizontalCenter = flatButton_favorite.horizontalCenter
         }
     }
-
+    Text {
+        id: favoritelabel
+        text: qsTr("Ajouter au favorites")
+        color: "white"
+        anchors.centerIn: favorite_rect
+    }
     FlatButton {
         id : flatButton_sleeping_mode
         width: parent.width / 7
@@ -216,21 +205,40 @@ Rectangle {
         onClicked: sleeping_dialog.open()
     }
     Rectangle{
-        id: favorite_rect
+        id: sleeping_rect
         color: "black"
         opacity: 0.4
         radius: 10
-        width: favoritelabel.implicitWidth + favoritelabel.font.pixelSize
-        height: favoritelabel.implicitHeight + favoritelabel.font.pixelSize
-        anchors.top : flatButton_favorite.bottom
-        anchors.left : parent.left
-        anchors.topMargin: favoritelabel.font.pixelSize
+        width: sleepinglabel.implicitWidth + sleepinglabel.font.pixelSize
+        height: sleepinglabel.implicitHeight + sleepinglabel.font.pixelSize
+        anchors.top : flatButton_sleeping_mode.bottom
+        //anchors.right : if(flatButton_sleeping_mode.anchors.rightMargin<= width/2)parent.right
+        anchors.horizontalCenter: if(flatButton_sleeping_mode.anchors.rightMargin>= width/2)flatButton_sleeping_mode.horizontalCenter
+        anchors.topMargin: sleepinglabel.font.pixelSize
+        Component.onCompleted: {
+            if(flatButton_sleeping_mode.anchors.rightMargin<= width/2)anchors.right = parent.right
+            else anchors.horizontalCenter = flatButton_sleeping_mode.horizontalCenter
+        }
     }
     Text {
-        id: favoritelabel
-        text: qsTr("Ajouter au favorites")
+        id: sleepinglabel
+        text: qsTr("mode de sommeil")
         color: "white"
-        anchors.centerIn: favorite_rect
+        anchors.centerIn: sleeping_rect
+    }
+    Button{
+        id: sleep_mode_cancel
+        text: "annuler"
+        anchors.horizontalCenter: sleeping_rect.horizontalCenter
+        anchors.top : sleeping_rect.bottom
+        anchors.topMargin: sleepinglabel.font.pixelSize
+        visible: false
+        onClicked: {
+            visible = false
+            radioStatiosContainer.scheduleInterruption()
+            tumbler.istimerworking = false
+            sleepinglabel.text= qsTr("mode de sommeil")
+        }
     }
     ToggleButton{
         id:playButton
