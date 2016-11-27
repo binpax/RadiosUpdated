@@ -180,12 +180,11 @@ void RadioStatiosContainer::schedule(const int interval){
 
     workerThread = new WorkerThread();
     connect(workerThread, &WorkerThread::resultReady, this, &RadioStatiosContainer::scheduletimeout);
+    connect(workerThread, &WorkerThread::tic, this, &RadioStatiosContainer::schedule_tic);
     connect(this, &RadioStatiosContainer::operate, workerThread, &WorkerThread::setinterval);
     connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
     emit operate(interval);
     workerThread->start();
-    //QThread::sleep(5);
-    //
 }
 void RadioStatiosContainer::scheduleInterruption(){
     workerThread->InterruptionRequested();

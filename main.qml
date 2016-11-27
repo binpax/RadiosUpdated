@@ -23,100 +23,12 @@ ApplicationWindow {
             break;
         }
         command = 0;
-
     }
-    Timer{
-        id: sleeping_timer; running: false; interval: 7000; repeat: false
-        onTriggered: {
-            //searchField.visible = false;
-            console.log("programm exiting")
-        }
-    }
-
-    Popup {
-        id: sleeping_dialog
-        x: (window.width - width) / 2
-        y: window.height / 2 - height/2
-        width: settingsColumn1.implicitWidth
-        height: settingsColumn1.implicitHeight + topPadding + bottomPadding
-        modal: true
-        focus: true
-        //anchors.centerIn: parent
-
-        contentItem: ColumnLayout {
-            id: settingsColumn1
-            spacing: 14
-
-            Label {
-                text: "voulez-vous vraiment quitter ?"
-                font.bold: true
-                font.pointSize: 20
-            }
-            RowLayout{
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 20
-                Label {
-                    text: "Heures"
-                }
-                Label {
-                    text: "Min."
-                }
-            }
-
-            Tumbler {
-                id: tumbler
-                anchors.horizontalCenter: parent.horizontalCenter
-                property int minutes: 0
-                TumblerColumn {
-                    id:hours
-                    width: 60
-                    model: ListModel {
-                        Component.onCompleted: {
-                            for (var i = 0; i < 10; ++i) {
-                                append({value: i.toString()});
-                            }
-                        }
-                    }
-                }
-                TumblerColumn {
-                    width: 60
-                    model: ListModel {
-                        Component.onCompleted: {
-                            for (var i = 0; i < 60; ++i) {
-                                append({value: i.toString()});
-                            }
-                        }
-                    }
-                }
-            }
-            RowLayout{
-                spacing: parent.spacing
-                anchors.right: parent.right
-                anchors.rightMargin: parent.spacing
-                Button{
-                    text:"Annuler"
-                    onClicked: sleeping_dialog.close()
-                }
-                Button{
-                    text:"Valider"
-                    onClicked: {
-                        sleeping_dialog.close()
-                        tumbler.minutes = tumbler.currentIndexAt(0)*60 + tumbler.currentIndexAt(1)
-                        console.log("column data is : " + tumbler.minutes)
-                        radioStatiosContainer.schedule(tumbler.minutes)
-                        //sleeping_timer.interval= tumbler.minutes*1000
-                        //sleeping_timer.start()
-                    }
-                }
-            }
-        }
-    }
-
     Popup {
         id: confirm_dialog
         x: (window.width - width) / 2
         y: window.height / 2 - height/2
-        width: settingsColumn + settingsColumn.spacing*2
+        width: settingsColumn.width + settingsColumn.spacing*2
         height: settingsColumn.implicitHeight + topPadding + bottomPadding
         modal: true
         focus: true
@@ -270,7 +182,7 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        sleeping_dialog.open()
+        //sleeping_dialog.open()
         //radioStatiosContainer.clear()
     }
 }

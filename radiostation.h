@@ -30,6 +30,7 @@ class WorkerThread : public QThread
         qDebug()<<"one shot ";
         for(int i=0; i<interval;i++){
             QThread::sleep(1);
+            emit tic(i);
             qDebug()<<"one shot "<<i;
             if(isInterruptionRequested){
                 isInterruptionRequested=false;
@@ -48,6 +49,7 @@ public slots:
 
 signals:
     void resultReady();
+    void tic(const int timeleft);
 };
 
 
@@ -99,6 +101,7 @@ class RadioStatiosContainer : public QObject
 signals:
     void newStatusChanged(const int &subject);
     void operate(const int interval);
+    void updatetimeleft(const int timeleft);
 public slots:
     void statusChanged(QMediaPlayer::MediaStatus status)
     {
@@ -106,8 +109,12 @@ public slots:
     }
     void scheduletimeout()
     {
-        //exitApp(0);
-        qDebug()<<"foreach timer";
+        exitApp(0);
+        //qDebug()<<"foreach timer";
+    }
+    void schedule_tic(const int timeleft)
+    {
+        emit updatetimeleft(timeleft);
     }
 public:
     RadioStatiosContainer();
