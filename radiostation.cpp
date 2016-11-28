@@ -124,10 +124,10 @@ void RadioStatiosContainer::playRadioStation(const QString id){
     mPlayer->play();
     //______get the metadate string based in the URL
 #ifdef Q_OS_ANDROID
-    QAndroidJniObject::callStaticMethod<void>("com/ahmed/radios/NotificationClient",
-                                              "getmetadata",
-                                              "(Ljava/lang/String;)V",
-                                              mediaMetadataRetriever.object<jstring>());
+ //   QAndroidJniObject::callStaticMethod<void>("com/ahmed/radios/NotificationClient",
+  //                                            "getmetadata",
+    //                                          "(Ljava/lang/String;)V",
+      //                                        mediaMetadataRetriever.object<jstring>());
 #endif
 }
 RadioStatiosContainer::~RadioStatiosContainer(){
@@ -170,14 +170,6 @@ int RadioStatiosContainer::clairfavorites(){
 }
 void RadioStatiosContainer::schedule(const int interval){
     qDebug()<<"RadioStatiosContainer::schedule(const int interval)";
-    //Worker *worker = new Worker;
-    //worker->moveToThread(&workerThread);
-    //connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
-    //connect(this, &RadioStatiosContainer::operate, worker, &Worker::doWork);
-    //connect(worker, &Worker::resultReady, this, &RadioStatiosContainer::scheduletimeout);
-    //qDebug()<<"connect(worker, &Worker::resultReady, this, &RadioStatiosContainer::scheduletimeout);";
-    //emit operate();
-
     workerThread = new WorkerThread();
     connect(workerThread, &WorkerThread::resultReady, this, &RadioStatiosContainer::scheduletimeout);
     connect(workerThread, &WorkerThread::tic, this, &RadioStatiosContainer::schedule_tic);
