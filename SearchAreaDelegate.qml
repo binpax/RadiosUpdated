@@ -2,11 +2,13 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
+import QtQuick.Controls.Styles 1.1
 
 TextField{
     id: searchField
     width: searchBg.width - 30
-    Material.accent: "white"
+    Material.accent:"white"
+    placeholderText: "Rechercher"
     Image {
         id: searchIcon
         source : "qrc:/images/Icon-search.png"
@@ -20,6 +22,8 @@ TextField{
         }
     }
 
+    Component.onCompleted: {
+}
     onTextChanged: {
         if(swipeView.currentIndex == 0){
             radioStatiosContainer.searchFavorites(text)

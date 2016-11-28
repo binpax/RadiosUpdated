@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import QtGraphicalEffects 1.0
 
 ListView {
     id:flistView
@@ -32,18 +33,32 @@ ListView {
                 border.width: 2
                 radius: 5
             }
-            Rectangle{
+            Image{
                 id:flistElementIcon
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: (parent.height - height)/ 2
                 height: parent.height * 0.8
                 width: height
-                radius: 5
-                clip: true
+                source: model.modelData.ImgSrc
+                layer.enabled: rounded
+                property bool rounded: true
+                property bool adapt: true
                 Image{
-                    source: model.modelData.ImgSrc
                     anchors.fill: parent
+                    source : "qrc:/images/cardeffect.png"
+                }
+                layer.effect: OpacityMask {
+                    maskSource: Item {
+                        width: flistElementIcon.width
+                        height: flistElementIcon.height
+                        Rectangle {
+                            anchors.centerIn: parent
+                            width: flistElementIcon.adapt ? flistElementIcon.width : Math.min(flistElementIcon.width, flistElementIcon.height)
+                            height: flistElementIcon.adapt ? flistElementIcon.height : width
+                            radius: 4
+                        }
+                    }
                 }
             }
 

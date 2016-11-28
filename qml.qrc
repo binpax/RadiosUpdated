@@ -61,7 +61,7 @@
         <file>images/Radios/radiochabab1.png</file>
         <file>images/Radios/radiomars.png</file>
         <file>images/Radios/radioplus.jpeg</file>
-        <file>images/Radios/radiosawa.png</file>
+        <file>images/Radios/radiosawa.jpg</file>
         <file>images/arrow_left.png</file>
         <file>images/arrow_left@x2.png</file>
         <file>images/arrow_left@x3.png</file>
@@ -71,5 +71,6 @@
         <file>images/favorites.png</file>
         <file>MPlayer.qml</file>
         <file>FavoritesList.qml</file>
+        <file>images/cardeffect.png</file>
     </qresource>
 </RCC>

@@ -166,10 +166,10 @@ ApplicationWindow {
         id: tabBar
         currentIndex: swipeView.currentIndex
         TabButton {
-            text: "Favorites"
+            text: "favoris"
         }
         TabButton {
-            text: "Stations list"
+            text: "Liste des stations"
         }
         onCurrentIndexChanged: {
             swipeView.currentIndex = currentIndex

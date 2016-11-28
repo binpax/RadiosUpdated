@@ -3,6 +3,8 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
 import QtQuick.Window 2.2
+import QtGraphicalEffects 1.0
+
 import QtQuick.Controls.Material 2.0
 import QtMultimedia 5.6
 Rectangle {
@@ -99,7 +101,7 @@ Rectangle {
 
     Image {
         id: radioImage
-        //source: "qrc:/images/Radios/radio-220px-Radiomars.gif"
+       // source: "qrc:/images/Radios/radio-220px-Radiomars.gif"
         anchors{
             left: parent.left
             leftMargin: 10
@@ -108,7 +110,28 @@ Rectangle {
         }
         width: 150
         height: 150
-    }
+        property bool rounded: true
+        property bool adapt: true
+        Image{
+            anchors.fill: parent
+            source : "qrc:/images/cardeffect.png"
+            opacity: 0.7
+        }
+        layer.enabled: rounded
+        layer.effect: OpacityMask {
+            maskSource: Item {
+                width: radioImage.width
+                height: radioImage.height
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: radioImage.adapt ? radioImage.width : Math.min(radioImage.width, radioImage.height)
+                    height: radioImage.adapt ? radioImage.height : width
+                    radius: 10
+                }
+            }
+        }
+     }
+
     Text {
         id: radioName
         text: "<b>"+ qsTr("choisissez une station") +"</b>"

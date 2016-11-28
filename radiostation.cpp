@@ -15,7 +15,7 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Medi 1","qrc:/images/Radios/radio-medi-1-radio.jpg","http://media.yabiladi.com:8000","This is a Description"));
     radioModel.append(new Radiostation("Radio 2M","qrc:/images/Radios/radio-2m.png","http://radio2m.scdn.arkena.com/live.mp3","This is a Description"));
     radioModel.append(new Radiostation("Chada FM","qrc:/images/Radios/radio-chadafm.jpeg","http://broadcast.infomaniak.net/chadafm-high.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Radio SAWA","qrc:/images/Radios/radiosawa.png","http://173.213.80.218:8000/;stream.mp3","This is a Description"));
+    radioModel.append(new Radiostation("Radio SAWA","qrc:/images/Radios/radiosawa.jpg","http://173.213.80.218:8000/;stream.mp3","This is a Description"));
     radioModel.append(new Radiostation("Luxe Radio","qrc:/images/Radios/radio-luxeradio.jpeg","http://68.168.118.115:8000/","This is a Description"));
     radioModel.append(new Radiostation("Medina FM","qrc:/images/Radios/radio-medina-fm.jpg","http://medinafm.ice.infomaniak.ch/medinafm-64.mp3","This is a Description"));
     radioModel.append(new Radiostation("MedRadio","qrc:/images/Radios/radio-med-radio_1.png","http://medradio-maroc.ice.infomaniak.ch/medradio-maroc-64.mp3","This is a Description"));
