@@ -90,6 +90,10 @@ ListView {
                 id: itemMouseArea
                 anchors.fill: parent
                 onClicked: {
+                    if(timer.running){
+                        timer.stop()
+                        searchField.visible = false
+                    }
                     listView.currentIndex = index
                     radioStatiosContainer.playRadioStation(model.modelData.Name)
                     radioPlayerPAGE.radioimage.source = model.modelData.ImgSrc

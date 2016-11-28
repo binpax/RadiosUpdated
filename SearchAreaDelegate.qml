@@ -11,7 +11,7 @@ TextField{
     placeholderText: "Rechercher"
     Image {
         id: searchIcon
-        source : "qrc:/images/Icon-search.png"
+        source : "qrc:/images/search.png"
         height: searchField.height*0.6
         width: height
         opacity: 0.4
@@ -35,9 +35,9 @@ TextField{
 
         timer.restart();
         if(text.length > 0 ) {
-            searchIcon.source = "qrc:/Images/Icon-delete.png"
+            searchIcon.source = "qrc:/images/Icon-delete.png"
         } else {
-            searchIcon.source = "qrc:/Images/Icon-search.png"
+            searchIcon.source = "qrc:/images/search.png"
         }
     }
 

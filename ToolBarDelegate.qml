@@ -41,6 +41,18 @@ ToolBar {
         ToolButton {
             contentItem: Image {
                 fillMode: Image.Pad
+                width: optionToolButton.width
+                height: width
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                source: "qrc:/images/search.png"
+            }
+            onClicked: {if(swipeView.currentIndex != 2){searchField.visible = true;timer.running = true;}}
+        }
+        ToolButton {
+            id: optionToolButton
+            contentItem: Image {
+                fillMode: Image.Pad
                 horizontalAlignment: Image.AlignHCenter
                 verticalAlignment: Image.AlignVCenter
                 source: "qrc:/images/menu.png"
