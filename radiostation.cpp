@@ -9,13 +9,13 @@ Radiostation::Radiostation(QString var,QString Img,QString linkst,QString desc)
 }
 
 RadioStatiosContainer::RadioStatiosContainer(){
-    radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.png","http://37.187.146.76:8000/;","This is a Description"));
-    radioModel.append(new Radiostation("Hitradio","qrc:/images/Radios/radio-hit-radio.png","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Medi 1","qrc:/images/Radios/radio-medi-1-radio.jpg","http://media.yabiladi.com:8000","This is a Description"));
+    radioModel.append(new Radiostation("Yabiladi Chaabi","qrc:/images/Radios/radio-yabiladi.jpg","http://37.187.146.76:8100/;stream.mp3","This is a Description"));
+    radioModel.append(new Radiostation("Yabiladi","qrc:/images/Radios/radio-yabiladi.jpg","http://37.187.146.76:8000/;","This is a Description"));
+    radioModel.append(new Radiostation("Hitradio","qrc:/images/Radios/radio-hit-radio.jpg","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
+    radioModel.append(new Radiostation("Medi 1","qrc:/images/Radios/radio-medi-1-radio.png","http://media.yabiladi.com:8000","This is a Description"));
     radioModel.append(new Radiostation("Radio 2M","qrc:/images/Radios/radio-2m.png","http://radio2m.scdn.arkena.com/live.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Chada FM","qrc:/images/Radios/radio-chadafm.jpeg","http://broadcast.infomaniak.net/chadafm-high.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio SAWA","qrc:/images/Radios/radiosawa.jpg","http://173.213.80.218:8000/;stream.mp3","This is a Description"));
+    radioModel.append(new Radiostation("Chada FM","qrc:/images/Radios/radio-chadafm.jpg","http://broadcast.infomaniak.net/chadafm-high.mp3","This is a Description"));
     radioModel.append(new Radiostation("Luxe Radio","qrc:/images/Radios/radio-luxeradio.jpeg","http://68.168.118.115:8000/","This is a Description"));
     radioModel.append(new Radiostation("Medina FM","qrc:/images/Radios/radio-medina-fm.jpg","http://medinafm.ice.infomaniak.ch/medinafm-64.mp3","This is a Description"));
     radioModel.append(new Radiostation("MedRadio","qrc:/images/Radios/radio-med-radio_1.png","http://medradio-maroc.ice.infomaniak.ch/medradio-maroc-64.mp3","This is a Description"));
@@ -23,16 +23,16 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Radio MFM","qrc:/images/Radios/radio-mfm.png","http://radio.mfmradio.ma/casa.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio Mars","qrc:/images/Radios/radiomars.png","http://radiomars.ice.infomaniak.ch/radiomars-128.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio Chabab","qrc:/images/Radios/radiochabab1.png","http://listen.radionomy.com/rjm1","This is a Description"));
-    radioModel.append(new Radiostation("Aswat","qrc:/images/Radios/radio-aswat.jpeg","http://broadcaster.infomaniak.ch/aswat-high.mp3","This is a Description"));
-    radioModel.append(new Radiostation("capradio","qrc:/images/Radios/radio-capradio.jpeg","","This is a Description"));
+    radioModel.append(new Radiostation("Aswat","qrc:/images/Radios/radio-aswat.jpg","http://broadcaster.infomaniak.ch/aswat-high.mp3","This is a Description"));
+    radioModel.append(new Radiostation("capradio","qrc:/images/Radios/radio-capradio.png","","This is a Description"));
     radioModel.append(new Radiostation("Radio Orient","qrc:/images/Radios/radio-orient-fm.png","http://stream3.broadcast-associes.com:8405/Radio-Orient","This is a Description"));
     radioModel.append(new Radiostation("Radio Soleil","qrc:/images/Radios/radio-soleil.png","http://radiosoleil.ice.infomaniak.ch/radiosoleil-128.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Hit Radio Dancefloor","qrc:/images/Radios/radio-hit-radio-dancefloor.png","http://dancefloor.ice.infomaniak.ch/dancefloor-128.mp3","This is a Description"));
+    radioModel.append(new Radiostation("Hit Radio Dancefloor","qrc:/images/Radios/radio-hit-radio-dancefloor.jpg","http://dancefloor.ice.infomaniak.ch/dancefloor-128.mp3","This is a Description"));
     radioModel.append(new Radiostation("Hit Radio RnB","qrc:/images/Radios/radio-hit-radio-rnb.png","http://rnb.ice.infomaniak.ch/rnb-128.mp3","This is a Description"));
     radioModel.append(new Radiostation("Hit Radio mgharba","qrc:/images/Radios/radio-hit-radio-mgharba.png","http://mgharba.ice.infomaniak.ch/mgharba-128.mp3","This is a Description"));
-    radioModel.append(new Radiostation("Hit Radio Buzz","qrc:/images/Radios/radio-hit-radio-buzz.png","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
+    radioModel.append(new Radiostation("Hit Radio Buzz","qrc:/images/Radios/radio-hit-radio-buzz.jpg","http://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio Star","qrc:/images/Radios/radio-starmaroc-fm.png","http://streaming.radionomy.com/RadioStarMaroc","This is a Description"));
-    radioModel.append(new Radiostation("Radio Itran","qrc:/images/Radios/radio-itran.png","http://streaming.radionomy.com/ChezWattfr","This is a Description"));
+    radioModel.append(new Radiostation("Radio Itran","qrc:/images/Radios/radio-itran.jpg","http://streaming.radionomy.com/ChezWattfr","This is a Description"));
     radioModel.append(new Radiostation("Radio HabaYiib","qrc:/images/Radios/radio-habayiib.png","http://85.214.110.29:8000/;","This is a Description"));
     radioModel.append(new Radiostation("izlan","qrc:/images/Radios/radio-izlan.png","http://philae.shoutca.st:8370/;","This is a Description"));
     radioModel.append(new Radiostation("Radio Marrakech","qrc:/images/Radios/radio-marrakech.png","http://95.141.24.70/;","This is a Description"));
@@ -42,9 +42,9 @@ RadioStatiosContainer::RadioStatiosContainer(){
     radioModel.append(new Radiostation("Monte Carlo","qrc:/images/Radios/radio-monte-carlo-doualiya.png","http://mc-doualiya.scdn.arkena.com/mc-doualiya.mp3","This is a Description"));
     radioModel.append(new Radiostation("Ness Radio","qrc:/images/Radios/radio-ness-radio.png","http://radio.nessradio.net:8000/nessradio.mp3","This is a Description"));
     radioModel.append(new Radiostation("Radio ITMA","qrc:/images/Radios/radio-itma.png","http://streaming.radionomy.com/radio-itma?lang=en-US%2cen%3bq%3d0.8%2cfr%3bq%3d0.6","This is a Description"));
-    radioModel.append(new Radiostation("MarocMusic","qrc:/images/Radios/radio-maroc-music.png","http://streaming.radionomy.com/MarocMusic?lang=en-US%2cen%3bq%3d0.8%2cfr%3bq%3d0.6","This is a Description"));
+    radioModel.append(new Radiostation("MarocMusic","qrc:/images/Radios/radio-maroc-music.jpg","http://streaming.radionomy.com/MarocMusic?lang=en-US%2cen%3bq%3d0.8%2cfr%3bq%3d0.6","This is a Description"));
     radioModel.append(new Radiostation("Radio Sawte Ouarzazate","qrc:/images/Radios/radio-sawte-ouarzazate.png","http://server7.mp3quran.net:8014/;","This is a Description"));
-    radioModel.append(new Radiostation("Anwa Rock","qrc:/images/Radios/radio-anwarock.png","http://streaming.radionomy.com/Anwa-rock?lang=en-US%2cen%3bq%3d0.8%2cfr%3bq%3d0.6","This is a Description"));
+    radioModel.append(new Radiostation("Anwa Rock","qrc:/images/Radios/radio-anwarock.jpg","http://streaming.radionomy.com/Anwa-rock?lang=en-US%2cen%3bq%3d0.8%2cfr%3bq%3d0.6","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Soufi","qrc:/images/Radios/radio-soufi.png","http://live.medi1.com/Soufi","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Andalouse","qrc:/images/Radios/radio-andalousse.png","http://live.medi1.com/Andalouse","This is a Description"));
     radioModel.append(new Radiostation("Medi1 Tarab","qrc:/images/Radios/radio-tarab.png","http://live.medi1.com/Tarab","This is a Description"));
