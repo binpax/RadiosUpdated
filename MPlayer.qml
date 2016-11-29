@@ -22,7 +22,7 @@ Rectangle {
         //property int remaining: 0
         x: (window.width - width) / 2
         y: window.height / 2 - height/2
-        width: settingsColumn1.implicitWidth *2/3
+        width: settingsColumn1.implicitWidth //*3
         height: settingsColumn1.implicitHeight//+ topPadding + bottomPadding
         modal: true
         focus: true
@@ -79,7 +79,7 @@ Rectangle {
             RowLayout{
                 spacing: parent.spacing
                 anchors.right: parent.right
-                anchors.rightMargin: parent.spacing
+                //anchors.rightMargin: parent.spacing -
                 Button{
                     text:"Annuler"
                     onClicked: sleeping_dialog.close()
@@ -139,6 +139,8 @@ Rectangle {
         anchors.leftMargin: 10
         anchors.top: radioImage.top
         anchors.topMargin: radioImage.height/5
+        anchors.right: parent.right
+        wrapMode: Text.Wrap
         color: "white"
         font.pointSize: 25
     }
@@ -181,13 +183,11 @@ Rectangle {
         }
         color: pressed ? "#d6d6d6" : "transparent"
         onClicked: {
-            if(radioImage.source.length > 0){
-                console.log("hello world")
-                radioStatiosContainer.addtofavorites(radioName.text)
-                radioStatiosContainer.searchFavorites()
-                radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()
-            }
+            radioStatiosContainer.addtofavorites(radioName.text)
+            radioStatiosContainer.searchFavorites()
+            radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()
         }
+
     }
     Rectangle{
         id: favorite_rect

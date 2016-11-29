@@ -80,7 +80,6 @@ void RadioStatiosContainer::FillingFavorites(const QList<QString> data){
             }
         }
     }
-    //qDebug()<<"count :"<<tmp.count();
 }
 
 void RadioStatiosContainer::searchALL(const QString msg){
@@ -117,11 +116,12 @@ void RadioStatiosContainer::playRadioStation(const QString id){
 #ifdef Q_OS_ANDROID
             mediaMetadataRetriever = QAndroidJniObject::fromString(radioModel.at(i)->Url());
 #endif
+            mPlayer->setVolume(100);
+            mPlayer->play();
             break;
         }
     }
-    mPlayer->setVolume(100);
-    mPlayer->play();
+
     //______get the metadate string based in the URL
 #ifdef Q_OS_ANDROID
  //   QAndroidJniObject::callStaticMethod<void>("com/ahmed/radios/NotificationClient",
@@ -146,6 +146,7 @@ int RadioStatiosContainer::isplaying(){
 }
 
 int RadioStatiosContainer::addtofavorites(const QString station){
+    if(station.length()==29) return 0;
     QVariantList reading = settings->value("favlist").toList();
     QList<QString> tmp;
     foreach(QVariant v, reading) tmp << v.toString();
@@ -169,7 +170,7 @@ int RadioStatiosContainer::clairfavorites(){
     return 1;
 }
 void RadioStatiosContainer::schedule(const int interval){
-    qDebug()<<"RadioStatiosContainer::schedule(const int interval)";
+
     workerThread = new WorkerThread();
     connect(workerThread, &WorkerThread::resultReady, this, &RadioStatiosContainer::scheduletimeout);
     connect(workerThread, &WorkerThread::tic, this, &RadioStatiosContainer::schedule_tic);
