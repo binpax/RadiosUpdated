@@ -27,11 +27,11 @@ class WorkerThread : public QThread
     bool isInterruptionRequested = false;
     void run() Q_DECL_OVERRIDE {
         QString result;
-        qDebug()<<"one shot ";
+        //qDebug()<<"one shot ";
         for(int i=0; i<interval;i++){
             QThread::sleep(1);
             emit tic(i);
-            qDebug()<<"one shot "<<i;
+            //qDebug()<<"one shot "<<i;
             if(isInterruptionRequested){
                 isInterruptionRequested=false;
                 return;
@@ -109,7 +109,7 @@ public slots:
     }
     void scheduletimeout()
     {
-        exitApp(0);
+        exitApp(1);
         //qDebug()<<"foreach timer";
     }
     void schedule_tic(const int timeleft)

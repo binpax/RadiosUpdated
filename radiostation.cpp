@@ -156,7 +156,7 @@ int RadioStatiosContainer::addtofavorites(const QString station){
 
     reading.clear();
 
-    foreach(QString v, tmp){ reading << v; qDebug()<<"foreach :"<<v;}
+    foreach(QString v, tmp){ reading << v;}
     settings->setValue("favlist", reading);
 
 

@@ -51,7 +51,7 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
 (JNIEnv *env, jobject var2, jstring string){
 
     QString metadatastring(env->GetStringUTFChars(string, 0));
-    qDebug()<<"niExport_StringReceiver "<<metadatastring;
+    //qDebug()<<"niExport_StringReceiver "<<metadatastring;
     rootObject->setProperty("jniMsg", metadatastring);
 
     return 1;
@@ -70,10 +70,7 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     rootObject = engine.rootObjects().first();
-    rootObject->setProperty("jniMsg", "true");
-#ifdef Q_OS_ANDROID
-    startJavaInterface();
-#endif
+    //rootObject->setProperty("jniMsg", "true");
 
     return app.exec();
 }

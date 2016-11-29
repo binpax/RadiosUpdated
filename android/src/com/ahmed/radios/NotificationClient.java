@@ -100,8 +100,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         }
 
         String message = "Focus request " + (mFocusGranted ? "granted" : "failed");
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        Log.i(TAG, message);
+        //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+       // Log.i(TAG, message);
 
         m_jniExport = new jniExport();
 

@@ -88,8 +88,8 @@ Rectangle {
                     text:"Valider"
                     onClicked: {
                         sleeping_dialog.close()
-                        tumbler.minutes = tumbler.currentIndexAt(0)*60 + tumbler.currentIndexAt(1)
-                        console.log("column data is : " + tumbler.minutes)
+                        tumbler.minutes = 60*(tumbler.currentIndexAt(0)*60 + tumbler.currentIndexAt(1))
+                        //console.log("column data is : " + tumbler.minutes)
                         radioStatiosContainer.schedule(tumbler.minutes)
                         sleep_mode_cancel.visible = true
                         tumbler.istimerworking= true
@@ -101,7 +101,7 @@ Rectangle {
 
     Image {
         id: radioImage
-       // source: "qrc:/images/Radios/radio-220px-Radiomars.gif"
+        // source: "qrc:/images/Radios/radio-220px-Radiomars.gif"
         anchors{
             left: parent.left
             leftMargin: 10
@@ -130,7 +130,7 @@ Rectangle {
                 }
             }
         }
-     }
+    }
 
     Text {
         id: radioName
@@ -181,9 +181,12 @@ Rectangle {
         }
         color: pressed ? "#d6d6d6" : "transparent"
         onClicked: {
-            radioStatiosContainer.addtofavorites(radioName.text)
-            radioStatiosContainer.searchFavorites()
-            radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()
+            if(radioImage.source.length > 0){
+                console.log("hello world")
+                radioStatiosContainer.addtofavorites(radioName.text)
+                radioStatiosContainer.searchFavorites()
+                radiolistFAVORITES.radioList.model = radioStatiosContainer.getFavoritesRadioList()
+            }
         }
     }
     Rectangle{
@@ -280,49 +283,48 @@ Rectangle {
 
             switch(subject){
             case 1:
-                console.log("case 1")
                 break;
             case 2:
-                console.log("case 2:")
+                //console.log("case 2:")
                 playerLoadingBar.visible = true
                 playButton.checked = true
                 break;
             case 3:
-                console.log("case 2:")
+                //console.log("case 2:")
                 break;
             case 4:
-                console.log("case 2:")
+                //console.log("case 2:")
                 break;
             case 5:
-                console.log("case 5")
+                //console.log("case 5")
                 break;
             case 6:
-                console.log("case 6:")
+                //console.log("case 6:")
                 playButton.checked = true
                 break;
             }
         }
         onUpdatetimeleft:{
             var remaining = tumbler.minutes - timeleft;
-                if(tumbler.istimerworking) sleepinglabel.text = formattime(remaining)
+            if(tumbler.istimerworking) sleepinglabel.text = formattime(remaining)
         }
     }
     function formattime(time){
         // Minutes and seconds
-        var mins = ~~(time / 60);
-        var secs = time % 60;
+        //var mins = ~~(time / 60);
+        //var secs = time % 60;
 
         // Hours, minutes and seconds
-        //var hrs = ~~(time / 3600);
-        //var mins = ~~((time % 3600) / 60);
-        //var secs = time % 60;
+        var hrs = ~~(time / 3600);
+        var mins = ~~((time % 3600) / 60);
+        var secs = time % 60;
 
         // Output like "1:01" or "4:03:59" or "123:03:59"
         var ret = "";
 
-        //if (hrs > 0) {
-        //    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-        //}
+        if (hrs > 0) {
+            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+        }
 
         ret += "" + mins + ":" + (secs < 10 ? "0" : "");
         ret += "" + secs;

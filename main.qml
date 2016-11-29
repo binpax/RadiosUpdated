@@ -15,8 +15,9 @@ ApplicationWindow {
     }
     onCommandChanged: {
         switch(command) {
-        case 2:
-            confirm_dialog.open()
+        case 2://back button pressed
+            if(swipeView.currentIndex ==2) swipeView.currentIndex = 1
+            else confirm_dialog.open()
             break;
         case 3:
             toolBarDelegate.optionsMenu.open()
@@ -28,7 +29,7 @@ ApplicationWindow {
         id: confirm_dialog
         x: (window.width - width) / 2
         y: window.height / 2 - height/2
-        width: settingsColumn.width + settingsColumn.spacing*2
+        width: settingsColumn.implicitWidth + leftPadding + rightPadding
         height: settingsColumn.implicitHeight + topPadding + bottomPadding
         modal: true
         focus: true
@@ -66,7 +67,7 @@ ApplicationWindow {
     }
 
     visible: true
-    width: 720
+    width: 320
     height: 1280
     title: qsTr("Radio Biladi")
     Material.primary: "#1887EE"
@@ -167,13 +168,20 @@ ApplicationWindow {
         currentIndex: swipeView.currentIndex
         TabButton {
             text: "favoris"
+            onClicked: {
+                swipeView.currentIndex = 0
+            }
         }
         TabButton {
             text: "Liste des stations"
+            onClicked: {
+                swipeView.currentIndex = 1
+            }
         }
-        onCurrentIndexChanged: {
-            swipeView.currentIndex = currentIndex
-        }
+        //onCurrentIndexChanged: {
+          //  swipeView.currentIndex = currentIndex
+       // }
+
     }
     Timer{
         id: timer; running: false; interval: 7000; repeat: false
@@ -182,7 +190,5 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        //sleeping_dialog.open()
-        //radioStatiosContainer.clear()
     }
 }
