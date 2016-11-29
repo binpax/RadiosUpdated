@@ -79,7 +79,7 @@ ListView {
                 font.pointSize: 20
             }
             Text {
-                text: "<i>This is a Description</i>"
+                //text: "<i>This is a Description</i>"
                 anchors.left : listElementIcon.left
                 anchors.leftMargin: listElementIcon.width *3/2
                 anchors.bottom: listElementIcon.bottom
