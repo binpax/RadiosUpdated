@@ -115,7 +115,8 @@ public slots:
     }
     void scheduletimeout()
     {
-        //exitApp(1);
+        if(mPlayer->state() == QMediaPlayer::PlayingState) mPlayer->stop();
+        exitApp(1);
         //qDebug()<<"foreach timer";
     }
     void schedule_tic(const int timeleft)
