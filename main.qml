@@ -59,7 +59,8 @@ ApplicationWindow {
                     text:"quitter"
                     onClicked: {
                         confirm_dialog.close()
-                        radioStatiosContainer.exitApp(1)
+                        //radioStatiosContainer.exitApp(1)
+                        Qt.quit()
                     }
                 }
             }
@@ -190,5 +191,7 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
+
+confirm_dialog.open()
     }
 }

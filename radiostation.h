@@ -102,14 +102,20 @@ signals:
     void newStatusChanged(const int &subject);
     void operate(const int interval);
     void updatetimeleft(const int timeleft);
+    void closeApp();
+
 public slots:
     void statusChanged(QMediaPlayer::MediaStatus status)
     {
         emit newStatusChanged(status);
     }
+    void testslot()
+    {
+        qDebug()<<"test signal received";
+    }
     void scheduletimeout()
     {
-        exitApp(1);
+        //exitApp(1);
         //qDebug()<<"foreach timer";
     }
     void schedule_tic(const int timeleft)

@@ -4,6 +4,8 @@
 #include <QMediaPlayer>
 #include "radiostation.h"
 #include <QQmlContext>
+#include <QObject>
+
 QObject *rootObject;
 QMediaPlayer *mMediaplayer;
 
@@ -71,6 +73,7 @@ int main(int argc, char *argv[])
 
     rootObject = engine.rootObjects().first();
     //rootObject->setProperty("jniMsg", "true");
+    QObject::connect(&engine, SIGNAL(quit()), &app, SLOT(quit()));
 
     return app.exec();
 }

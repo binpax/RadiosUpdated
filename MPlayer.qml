@@ -88,7 +88,7 @@ Rectangle {
                     text:"Valider"
                     onClicked: {
                         sleeping_dialog.close()
-                        tumbler.minutes = 60*(tumbler.currentIndexAt(0)*60 + tumbler.currentIndexAt(1))
+                        tumbler.minutes = (tumbler.currentIndexAt(0)*60 + tumbler.currentIndexAt(1))//*60
                         //console.log("column data is : " + tumbler.minutes)
                         radioStatiosContainer.schedule(tumbler.minutes)
                         sleep_mode_cancel.visible = true
