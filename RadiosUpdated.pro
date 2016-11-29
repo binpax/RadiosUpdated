@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 multimedia qml
+QT += quickcontrols2 multimedia
 android {
     message("* Using settings for Android.")
     QT += androidextras
