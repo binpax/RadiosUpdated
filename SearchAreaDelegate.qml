@@ -6,9 +6,11 @@ import QtQuick.Controls.Styles 1.1
 
 TextField{
     id: searchField
+    property alias searchField: searchField
     width: searchBg.width - 30
     Material.accent:"white"
     placeholderText: "Rechercher"
+    inputMethodHints: Qt.ImhNoPredictiveText
     Image {
         id: searchIcon
         source : "qrc:/images/search.png"
@@ -23,7 +25,7 @@ TextField{
     }
 
     Component.onCompleted: {
-}
+    }
     onTextChanged: {
         if(swipeView.currentIndex == 0){
             radioStatiosContainer.searchFavorites(text)

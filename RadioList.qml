@@ -93,6 +93,7 @@ ListView {
                     if(timer.running){
                         timer.stop()
                         searchField.visible = false
+                        searchField.text = ""
                     }
                     listView.currentIndex = index
                     radioStatiosContainer.playRadioStation(model.modelData.Name)
@@ -100,7 +101,8 @@ ListView {
                     radioPlayerPAGE.radioname.text = model.modelData.Name
                     //radioPlayerPAGE.radiodescription.text = model.modelData.Description
                     swipeView.currentIndex = 2
-                    window= "hello"
+                    radiolistFAVORITES.radioList.currentIndex = -1
+                    //window= "hello"
                 }
             }
         }

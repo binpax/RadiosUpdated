@@ -21,6 +21,7 @@ ToolBar {
                 if(timer.running){
                     timer.stop()
                     searchField.visible = false
+                    searchField.text = ""
                 }else if(swipeView.currentIndex == 2)
                     swipeView.currentIndex = 1
                 else
