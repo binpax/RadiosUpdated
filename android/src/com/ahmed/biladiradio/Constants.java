@@ -1,6 +1,4 @@
-package com.ahmed.radios;
-import com.ahmed.radios.*;
-
+package com.ahmed.biladiradio;
 
 import android.content.Context;
 import android.graphics.Bitmap;

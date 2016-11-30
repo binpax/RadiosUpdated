@@ -1,4 +1,4 @@
-package com.ahmed.radios;
+package com.ahmed.biladiradio;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
-import com.ahmed.radios.*;
 
 public class NotificationService extends Service {
     public static Activity mContext;
@@ -122,7 +120,7 @@ public class NotificationService extends Service {
         status.contentView = views;
         //status.bigContentView = bigViews;
         status.flags = Notification.FLAG_ONGOING_EVENT;
-        status.icon = R.drawable.ic_launcher;
+        status.icon = R.drawable.icon;
         status.contentIntent = pendingIntent;
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
     }

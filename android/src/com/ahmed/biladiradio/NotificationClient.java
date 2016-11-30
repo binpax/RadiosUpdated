@@ -48,7 +48,7 @@
 **
 ****************************************************************************/
 
-package com.ahmed.radios;
+package com.ahmed.biladiradio;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -62,6 +62,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ahmed.QAndroidResultReceiver.jniExport.jniExport;
@@ -98,13 +99,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
                 mFocusGranted = false;
                 break;
         }
-
-        String message = "Focus request " + (mFocusGranted ? "granted" : "failed");
-        //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-       // Log.i(TAG, message);
-
         m_jniExport = new jniExport();
-
+        startService();
         };
 
     public NotificationClient()
@@ -193,5 +189,11 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     public boolean super_onKeyDown(int keyCode, KeyEvent event)
     {
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void startService() {
+        Intent serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
+        serviceIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
+        startService(serviceIntent);
     }
 }
