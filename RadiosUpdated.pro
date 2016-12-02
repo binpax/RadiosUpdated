@@ -22,7 +22,7 @@ DISTFILES += \
     RadioList.qml \
     ToolBarDelegate.qml \
     android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java \
-    android/src/com/ahmed/radios/NotificationClient.java \
+    android/src/com/ahmed/biladiradio/* \
     android/AndroidManifest.xml \
     android/AndroidManifest.xml \
     android/res/values/libs.xml \

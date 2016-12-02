@@ -56,8 +56,8 @@ RadioStatiosContainer::RadioStatiosContainer(){
     searchALL("");
     searchFavorites("");
     mPlayer = new QMediaPlayer(this, QMediaPlayer::StreamPlayback);
-    connect(mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
-            this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
+   // connect(mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
+    //connect(mPlayer, SIGNAL(stateChanged(QMediaPlayer::MediaStatus)),this, SLOT(newStateChanged(QMediaPlayer::MediaStatus)));
     // connect(mPlayer, SIGNAL(bufferStatusChanged(int)), slider, SLOT(setValue(int)));
 }
 
@@ -103,6 +103,7 @@ void RadioStatiosContainer::exitApp(const int cmd){
 #ifdef Q_OS_ANDROID
     QtAndroid::androidActivity().callMethod<int>("exitapplication", "(I)I",cmd);
 #endif
+
 }
 
 void RadioStatiosContainer::playRadioStation(const QString id){
@@ -181,4 +182,12 @@ void RadioStatiosContainer::schedule(const int interval){
 }
 void RadioStatiosContainer::scheduleInterruption(){
     workerThread->InterruptionRequested();
+}
+void RadioStatiosContainer::Updatenotification(const QString CurrentStation,const int status){
+#ifdef Q_OS_ANDROID
+
+    //QtAndroid::androidActivity().callMethod<int>("exitapplication", "(I)I",cmd);
+    //QAndroidJniObject jniCurrentStation = QAndroidJniObject::fromString(CurrentStation);
+    QtAndroid::androidActivity().callMethod<int>("testonly", "(I)I",status);
+#endif
 }

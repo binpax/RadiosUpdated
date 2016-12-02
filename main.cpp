@@ -9,6 +9,7 @@
 QObject *rootObject;
 QMediaPlayer *mMediaplayer;
 
+RadioStatiosContainer *Containerpointer;
 #ifdef Q_OS_ANDROID
 
 void startJavaInterface(){
@@ -23,6 +24,10 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
 (JNIEnv *, jobject, jint focusChange){
     static int lastfocus = 0;
     switch (focusChange) {
+    case 4:
+        Containerpointer->togglePlayer(0);
+        lastfocus = 1;
+        break;
     case AUDIOFOCUS_LOSS:
         mMediaplayer->pause();
         lastfocus = 1;
@@ -61,19 +66,25 @@ JNIEXPORT jint JNICALL Java_com_ahmed_QAndroidResultReceiver_jniExport_jniExport
 #endif
 int main(int argc, char *argv[])
 {
+    qDebug()<<"    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);";
+
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);QQuickStyle::setStyle("Material");
     RadioStatiosContainer Container;
+    Containerpointer = &Container;
     mMediaplayer = Container.mPlayer;
     QQmlApplicationEngine engine;
 
     QQmlContext *ctxt = engine.rootContext();
     ctxt->setContextProperty("radioStatiosContainer", &Container);
+    qDebug()<<"setContextProper";
+
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     rootObject = engine.rootObjects().first();
     //rootObject->setProperty("jniMsg", "true");
-    QObject::connect(&engine, SIGNAL(quit()), &app, SLOT(quit()));
+    qDebug()<<"rootObject = engine.rootObjects().first();";
 
     return app.exec();
 }

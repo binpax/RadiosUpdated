@@ -1,128 +1,104 @@
 package com.ahmed.biladiradio;
-
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 public class NotificationService extends Service {
-    public static Activity mContext;
-
+    Notification status;
+    //NotificationCompat.Builder mBuilder;
+    Callbacks activity;
+    private final IBinder mBinder = new LocalBinder();
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+    public RemoteViews views;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)) {
             showNotification();
-            Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
-
-        } else if (intent.getAction().equals(Constants.ACTION.PREV_ACTION)) {
-            Toast.makeText(this, "Clicked Previous", Toast.LENGTH_SHORT).show();
-            Log.i(LOG_TAG, "Clicked Previous");
-        } else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)) {
-            Toast.makeText(this, "Clicked Play", Toast.LENGTH_SHORT).show();
+        }else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)) {
+            //toggle the mediaplayer
+            activity.sendPlayPressedButton();
             Log.i(LOG_TAG, "Clicked Play");
-        } else if (intent.getAction().equals(Constants.ACTION.NEXT_ACTION)) {
-            Toast.makeText(this, "Clicked Next", Toast.LENGTH_SHORT).show();
-            Log.i(LOG_TAG, "Clicked Next");
         } else if (intent.getAction().equals(
                 Constants.ACTION.STOPFOREGROUND_ACTION)) {
             Log.i(LOG_TAG, "Received Stop Foreground Intent");
-            Toast.makeText(this, "Service Stoped", Toast.LENGTH_SHORT).show();
             stopForeground(true);
             stopSelf();
+            activity.exitapplication(1);
         }
+
+       // activity.updateClient(millis); //Update Activity (client) by the implementd callback
+
         return START_STICKY;
     }
-    Notification status;
     private final String LOG_TAG = "NotificationService";
 
     private void showNotification() {
-// Using RemoteViews to bind custom layouts into Notification
-        RemoteViews views = new RemoteViews(getPackageName(),
-                R.layout.status_bar);
-        //RemoteViews bigViews = new RemoteViews(getPackageName(),
-        //   R.layout.status_bar_expanded);
-
-// showing default album image
+        views = new RemoteViews(getPackageName(),R.layout.status_bar);
         views.setViewVisibility(R.id.status_bar_icon, View.VISIBLE);
-        //views.setViewVisibility(R.id.status_bar_album_art, View.GONE);
-        //bigViews.setImageViewBitmap(R.id.status_bar_album_art,
-        //  Constants.getDefaultAlbumArt(this));
 
         Intent notificationIntent = new Intent(this, NotificationClient.class);
         notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                notificationIntent, 0);
-
-        Intent previousIntent = new Intent(this, NotificationService.class);
-        previousIntent.setAction(Constants.ACTION.PREV_ACTION);
-        PendingIntent ppreviousIntent = PendingIntent.getService(this, 0,
-                previousIntent, 0);
-
-        Intent playIntent = new Intent(this, NotificationService.class);
-        playIntent.setAction(Constants.ACTION.PLAY_ACTION);
-        PendingIntent pplayIntent = PendingIntent.getService(this, 0,
-                playIntent, 0);
-
-        Intent nextIntent = new Intent(this, NotificationService.class);
-        nextIntent.setAction(Constants.ACTION.NEXT_ACTION);
-        PendingIntent pnextIntent = PendingIntent.getService(this, 0,
-                nextIntent, 0);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         Intent closeIntent = new Intent(this, NotificationService.class);
         closeIntent.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
-        PendingIntent pcloseIntent = PendingIntent.getService(this, 0,
-                closeIntent, 0);
-
-        //views.setOnClickPendingIntent(R.id.status_bar_play, pplayIntent);
-        ////bigViews.setOnClickPendingIntent(R.id.status_bar_play, pplayIntent);
-
-        //views.setOnClickPendingIntent(R.id.status_bar_next, pnextIntent);
-        ////bigViews.setOnClickPendingIntent(R.id.status_bar_next, pnextIntent);
-
-        //views.setOnClickPendingIntent(R.id.status_bar_prev, ppreviousIntent);
-        //bigViews.setOnClickPendingIntent(R.id.status_bar_prev, ppreviousIntent);
-
+        PendingIntent pcloseIntent = PendingIntent.getService(this, 0,closeIntent, 0);
         views.setOnClickPendingIntent(R.id.status_bar_collapse, pcloseIntent);
-        //bigViews.setOnClickPendingIntent(R.id.status_bar_collapse, pcloseIntent);
 
-        //views.setImageViewResource(R.id.status_bar_play,
-        //        R.drawable.apollo_holo_dark_pause);
-        //bigViews.setImageViewResource(R.id.status_bar_play,
-        //       R.drawable.apollo_holo_dark_pause);
+        Intent playIntent = new Intent(this, NotificationService.class);
+        playIntent.setAction(Constants.ACTION.PLAY_ACTION);
+        PendingIntent pplayIntent = PendingIntent.getService(this, 0,playIntent, 0);
+        views.setOnClickPendingIntent(R.id.status_bar_next, pplayIntent);
 
-        views.setTextViewText(R.id.status_bar_track_name, "Song Title");
-        //bigViews.setTextViewText(R.id.status_bar_track_name, "Song Title");
 
+        views.setTextViewText(R.id.status_bar_track_name, "Bonjour !");
         views.setTextViewText(R.id.status_bar_artist_name, "Artist Name");
-        //bigViews.setTextViewText(R.id.status_bar_artist_name, "Artist Name");
-
-        //bigViews.setTextViewText(R.id.status_bar_album_name, "Album Name");
-
+        views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
         status = new Notification.Builder(this).build();
+
         status.contentView = views;
         //status.bigContentView = bigViews;
         status.flags = Notification.FLAG_ONGOING_EVENT;
-        status.icon = R.drawable.icon;
+        status.icon = R.drawable.notiflogo;
         status.contentIntent = pendingIntent;
         startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
     }
-
+    public void registerClient(Activity activity){
+        this.activity = (Callbacks)activity;
+    }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder;
+    }
+    public class LocalBinder extends Binder {
+        public NotificationService getServiceInstance(){
+            return NotificationService.this;
+        }
+    }
+    public void update(String station,String desc, int state){
+        views.setTextViewText(R.id.status_bar_track_name, station);
+        views.setTextViewText(R.id.status_bar_artist_name, desc);
+        if(state !=0)views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
+        else views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_pause);
+        status.contentView = views;
+        stopForeground(true);
+        startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
+        //activity.sendPressedButton(434);
+    }
+    public interface Callbacks{
+        public int exitapplication(int cmd);
+        public void sendPlayPressedButton();
+    }
 }

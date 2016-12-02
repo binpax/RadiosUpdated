@@ -11,6 +11,9 @@
 //#include <QtAndroidExtras/QAndroidJniObject>
 //#endif
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroid>
+#endif
 #include "qdebug.h"
 
 
@@ -100,6 +103,7 @@ class RadioStatiosContainer : public QObject
     Q_OBJECT
 signals:
     void newStatusChanged(const int &subject);
+    void newStateChanged(const int &subject);
     void operate(const int interval);
     void updatetimeleft(const int timeleft);
     void closeApp();
@@ -107,7 +111,14 @@ signals:
 public slots:
     void statusChanged(QMediaPlayer::MediaStatus status)
     {
+        qDebug()<<"statusChanged";
         emit newStatusChanged(status);
+        //Updatenotification(CurrentStation,status);
+    }
+    void stateChanged(QMediaPlayer::State status)
+    {
+        qDebug()<<"stateChanged" + status;
+        emit newStateChanged(status);
     }
     void testslot()
     {
@@ -151,6 +162,8 @@ private:
     QList<Radiostation *> favoritesModel;
     QList<Radiostation *> radioModel;
     QSettings *settings;
+    QString CurrentStation;
+    void Updatenotification(const QString CurrentStation,const int status);
 };
 
 #ifdef Q_OS_ANDROID

@@ -164,6 +164,23 @@ Rectangle {
         anchors.bottomMargin: 20
         Material.accent: "white"
     }
+
+    Label{
+        id:playerLabel
+
+        anchors{
+            left: parent.left
+            leftMargin: parent.width/10
+            right: parent.right
+            rightMargin: parent.width/10
+            verticalCenter: playerLoadingBar.verticalCenter
+        }
+        wrapMode: Text.Wrap
+        color: "white"
+        visible: false
+        text: "Problème avec le source Streaming, réessayer ultérieurement."
+    }
+
     FlatButton {
         id: flatButton_favorite
         width: parent.width / 7
@@ -278,36 +295,80 @@ Rectangle {
     Connections{
         target:radioStatiosContainer
         onNewStatusChanged: {
-            playerLoadingBar.visible = false
-            playButton.checked = false
+            console.log("onNewStatusChanged:"+  subject)
+            //playerLoadingBar.visible = false
+            playerLabel.visible = false
+            playButton.visible = true
 
             switch(subject){
             case 1:
+                //The is no current media. The player is in the StoppedState.
+                playerLoadingBar.visible = false
+                playButton.checked = stop
+                playButton.checkable = false
+
                 break;
             case 2:
-                //console.log("case 2:")
+                console.log("case 2: LoadingMedia")
                 playerLoadingBar.visible = true
                 playButton.checked = true
+                playButton.checkable = false
+
                 break;
             case 3:
-                //console.log("case 2:")
+                playerLoadingBar.visible = false
+                playButton.checked = false
+                playButton.checkable = true
+
+                console.log("3 The current media has been loaded. The player is in the StoppedState.")
                 break;
             case 4:
-                //console.log("case 2:")
+                //Playback of the current media has stalled due to insufficient buffering
+                //or some other temporary interruption.
+                //The player is i the PlayingState or PausedState.
+                playerLoadingBar.visible = false
+                playButton.checkable = false
+                playButton.checked = false
+
                 break;
             case 5:
-                //console.log("case 5")
+                //The player is buffering data but has enough data buffered
+                playerLoadingBar.visible = false
+                playButton.checked = false
+                playButton.checkable = true
+                playButton.visible = false
+
                 break;
             case 6:
-                //console.log("case 6:")
+                //The player has fully buffered the current media.
+                //The player is in the PlayingState or PausedState.
+                console.log("case 6:")
                 playButton.checked = true
+                playerLoadingBar.visible = false
+                playButton.checkable = true
+                break;
+            case 8:
+                console.log("case 6:")
+                playButton.checked = false
+                playerLoadingBar.visible = false
+                playerLabel.visible = true
+                playButton.visible = false
+
                 break;
             }
         }
+        /*
+        onStateChanged:{
+            console.log("case : onStateChanged")
+            playButton.checked = subject === MediaPlayer.PlayingState ? "false" :
+                                                                        subject === MediaPlayer.PausedState ? "true" : "true"
+        }
+
         onUpdatetimeleft:{
             var remaining = tumbler.minutes - timeleft;
             if(tumbler.istimerworking) sleepinglabel.text = formattime(remaining)
         }
+        */
     }
     function formattime(time){
         // Minutes and seconds

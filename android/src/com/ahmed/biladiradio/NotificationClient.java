@@ -53,16 +53,15 @@ package com.ahmed.biladiradio;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.os.IBinder;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.ahmed.QAndroidResultReceiver.jniExport.jniExport;
@@ -71,10 +70,9 @@ import org.qtproject.qt5.android.bindings.QtApplication;
 
 import java.util.HashMap;
 
-import static android.content.ContentValues.TAG;
-
-public class NotificationClient extends org.qtproject.qt5.android.bindings.QtActivity
+public class NotificationClient extends org.qtproject.qt5.android.bindings.QtActivity implements NotificationService.Callbacks
 {
+    private String CurrentStation;
     private static NotificationManager m_notificationManager;
     private static Notification.Builder m_builder;
     private static NotificationClient m_instance;
@@ -83,6 +81,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private AudioFocusChangeListenerImpl mAudioFocusChangeListener;
     private boolean mFocusGranted, mFocusChanged;
     private Activity mActivity;
+    private Intent serviceIntent;
+    private NotificationService notificationService;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //m_jniExport.intMethod(12);
@@ -145,6 +145,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
         //m_jniExport.StringReceiver(metaD);
     }
+
+    @Override
     public int exitapplication(int cmd)
     {
         if(cmd == 1){this.finish();System.exit(0);}
@@ -192,8 +194,43 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     }
 
     public void startService() {
-        Intent serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
+         serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
         serviceIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
         startService(serviceIntent);
+        bindService(serviceIntent, mConnection,Context.BIND_AUTO_CREATE); //Binding to the service!
+
+    }
+
+private ServiceConnection mConnection = new ServiceConnection() {
+
+    @Override
+    public void onServiceConnected(ComponentName className,
+                                   IBinder service) {
+        Toast.makeText(NotificationClient.this, "onServiceConnected called", Toast.LENGTH_SHORT).show();
+        // We've binded to LocalService, cast the IBinder and get LocalService instance
+        NotificationService.LocalBinder binder = (NotificationService.LocalBinder) service;
+        notificationService = binder.getServiceInstance(); //Get instance of your service!
+        notificationService.registerClient(NotificationClient.this); //Activity register in the service as client for callabcks!
+        Toast.makeText(NotificationClient.this, "Connected to service...", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName arg0) {
+        Toast.makeText(NotificationClient.this, "onServiceDisconnected called", Toast.LENGTH_SHORT).show();
+    }
+};
+
+@Override
+public void sendPlayPressedButton() {
+    Toast.makeText(this, "sendPressedButton ", Toast.LENGTH_SHORT).show();
+    m_jniExport.intMethod(4);
+}
+    public int notificationStringsReciever(String CurrentStation, int State){
+        Toast.makeText(this, "notificationStringsReciever "+ CurrentStation+" "+ State, Toast.LENGTH_SHORT).show();
+        return 0;
+    }
+    public int testonly( int State){
+        Toast.makeText(this, "notificationStringsReciever "+State, Toast.LENGTH_SHORT).show();
+        return 0;
     }
 }

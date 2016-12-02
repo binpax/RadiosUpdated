@@ -179,15 +179,10 @@ ApplicationWindow {
                 swipeView.currentIndex = 1
             }
         }
-        //onCurrentIndexChanged: {
-          //  swipeView.currentIndex = currentIndex
-       // }
 
     }
     Timer{
         id: timer; running: false; interval: 7000; repeat: false
         onTriggered: searchField.visible = false;
-    }
-    Component.onCompleted: {
     }
 }
