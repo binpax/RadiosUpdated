@@ -43,7 +43,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginRight="8dp"
-        android:background="@android:drawable/ic_media_play" />
+        android:background="@android:color/transparent"
+        />
 
     <ImageButton
         android:id="@+id/status_bar_collapse"

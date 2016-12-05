@@ -149,7 +149,12 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     @Override
     public int exitapplication(int cmd)
     {
-        if(cmd == 1){this.finish();System.exit(0);}
+        if(cmd == 1){
+            serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
+            serviceIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
+            stopService(serviceIntent);
+            this.finish();//System.exit(0);
+        }
         else if (cmd == 2){
             Intent i = new Intent();
             i.setAction(Intent.ACTION_MAIN);

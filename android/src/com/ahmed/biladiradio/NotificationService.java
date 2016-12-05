@@ -17,6 +17,7 @@ public class NotificationService extends Service {
     private final IBinder mBinder = new LocalBinder();
     @Override
     public void onDestroy() {
+        this.stopForeground(false);
         super.onDestroy();
     }
     public RemoteViews views;
@@ -66,7 +67,9 @@ public class NotificationService extends Service {
         views.setTextViewText(R.id.status_bar_track_name, "Bonjour !");
         views.setTextViewText(R.id.status_bar_artist_name, "Artist Name");
         views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
-        status = new Notification.Builder(this).build();
+        views.setImageViewResource(R.id.status_bar_collapse, R.drawable.ic_media_stop);
+
+                status = new Notification.Builder(this).build();
 
         status.contentView = views;
         //status.bigContentView = bigViews;
@@ -101,4 +104,5 @@ public class NotificationService extends Service {
         public int exitapplication(int cmd);
         public void sendPlayPressedButton();
     }
+
 }
