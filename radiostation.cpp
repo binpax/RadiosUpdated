@@ -56,7 +56,7 @@ RadioStatiosContainer::RadioStatiosContainer(){
     searchALL("");
     searchFavorites("");
     mPlayer = new QMediaPlayer(this, QMediaPlayer::StreamPlayback);
-   // connect(mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
+    connect(mPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),this, SLOT(statusChanged(QMediaPlayer::MediaStatus)));
     //connect(mPlayer, SIGNAL(stateChanged(QMediaPlayer::MediaStatus)),this, SLOT(newStateChanged(QMediaPlayer::MediaStatus)));
     // connect(mPlayer, SIGNAL(bufferStatusChanged(int)), slider, SLOT(setValue(int)));
 }
@@ -117,6 +117,7 @@ void RadioStatiosContainer::playRadioStation(const QString id){
 #ifdef Q_OS_ANDROID
             mediaMetadataRetriever = QAndroidJniObject::fromString(radioModel.at(i)->Url());
 #endif
+            CurrentStation = id;
             mPlayer->setVolume(100);
             mPlayer->play();
             break;
@@ -187,7 +188,7 @@ void RadioStatiosContainer::Updatenotification(const QString CurrentStation,cons
 #ifdef Q_OS_ANDROID
 
     //QtAndroid::androidActivity().callMethod<int>("exitapplication", "(I)I",cmd);
-    //QAndroidJniObject jniCurrentStation = QAndroidJniObject::fromString(CurrentStation);
-    QtAndroid::androidActivity().callMethod<int>("testonly", "(I)I",status);
+    QAndroidJniObject jniCurrentStation = QAndroidJniObject::fromString(CurrentStation);
+    QtAndroid::androidActivity().callMethod<void>("notificationStringsReciever", "(Ljava/lang/String;I)V",jniCurrentStation.object<jstring>(),status);
 #endif
 }

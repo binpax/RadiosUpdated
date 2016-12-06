@@ -1,8 +1,10 @@
 package com.ahmed.biladiradio;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -17,8 +19,10 @@ public class NotificationService extends Service {
     private final IBinder mBinder = new LocalBinder();
     @Override
     public void onDestroy() {
-        this.stopForeground(false);
+        //this.stopForeground(false);
         super.onDestroy();
+        Log.i(LOG_TAG, "NotificationService onDestroy");
+
     }
     public RemoteViews views;
 
@@ -35,6 +39,9 @@ public class NotificationService extends Service {
             Log.i(LOG_TAG, "Received Stop Foreground Intent");
             stopForeground(true);
             stopSelf();
+            Log.i(LOG_TAG, "Received stopSelf();");
+            //this.unbindService();
+
             activity.exitapplication(1);
         }
 
@@ -47,6 +54,7 @@ public class NotificationService extends Service {
     private void showNotification() {
         views = new RemoteViews(getPackageName(),R.layout.status_bar);
         views.setViewVisibility(R.id.status_bar_icon, View.VISIBLE);
+
 
         Intent notificationIntent = new Intent(this, NotificationClient.class);
         notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
@@ -90,19 +98,38 @@ public class NotificationService extends Service {
             return NotificationService.this;
         }
     }
-    public void update(String station,String desc, int state){
+    public void update(String station,int state){
+        String desc ;
         views.setTextViewText(R.id.status_bar_track_name, station);
+        switch (state) {
+            case 2:
+                desc = "Chargement ...";
+                views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
+
+                break;
+            case 6:
+                desc = "";
+                views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_pause);
+                break;
+            case 8:
+                desc = "Source Introuvable";
+                views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
+                break;
+            default:
+                desc = "";
+                views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
+        }
         views.setTextViewText(R.id.status_bar_artist_name, desc);
-        if(state !=0)views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_play);
-        else views.setImageViewResource(R.id.status_bar_next, android.R.drawable.ic_media_pause);
         status.contentView = views;
-        stopForeground(true);
-        startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
+
         //activity.sendPressedButton(434);
     }
     public interface Callbacks{
         public int exitapplication(int cmd);
         public void sendPlayPressedButton();
+        public Context getcontext();
     }
 
 }

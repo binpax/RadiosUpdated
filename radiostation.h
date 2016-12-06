@@ -111,9 +111,9 @@ signals:
 public slots:
     void statusChanged(QMediaPlayer::MediaStatus status)
     {
-        qDebug()<<"statusChanged";
+        qDebug()<<"statusChanged CurrentStation"<<CurrentStation;
         emit newStatusChanged(status);
-        //Updatenotification(CurrentStation,status);
+        Updatenotification(CurrentStation,status);
     }
     void stateChanged(QMediaPlayer::State status)
     {

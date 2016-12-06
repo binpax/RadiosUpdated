@@ -61,12 +61,13 @@ import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.ahmed.QAndroidResultReceiver.jniExport.jniExport;
 
-import org.qtproject.qt5.android.bindings.QtApplication;
+import org.qtproject.qt5.android.bindings.*;
 
 import java.util.HashMap;
 
@@ -152,8 +153,10 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
         if(cmd == 1){
             serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
             serviceIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
-            stopService(serviceIntent);
-            this.finish();//System.exit(0);
+            unbindService(mConnection);
+            this.finish();
+            //android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
         }
         else if (cmd == 2){
             Intent i = new Intent();
@@ -174,6 +177,7 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     }
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("LOGCSt", "NotificationClient onDestroy");
         mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
     }
     @Override
@@ -199,13 +203,16 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     }
 
     public void startService() {
-         serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
+        serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
         serviceIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
         startService(serviceIntent);
         bindService(serviceIntent, mConnection,Context.BIND_AUTO_CREATE); //Binding to the service!
 
     }
-
+    @Override
+    public Context getcontext(){
+        return getApplicationContext();
+    }
 private ServiceConnection mConnection = new ServiceConnection() {
 
     @Override
@@ -228,14 +235,16 @@ private ServiceConnection mConnection = new ServiceConnection() {
 @Override
 public void sendPlayPressedButton() {
     Toast.makeText(this, "sendPressedButton ", Toast.LENGTH_SHORT).show();
-    m_jniExport.intMethod(4);
+    //m_jniExport.intMethod(4);
+    Intent iinent= new Intent(this,QtApplication.class);
+    startActivity(iinent);
+
 }
-    public int notificationStringsReciever(String CurrentStation, int State){
-        Toast.makeText(this, "notificationStringsReciever "+ CurrentStation+" "+ State, Toast.LENGTH_SHORT).show();
-        return 0;
+    public void notificationStringsReciever(String CurrentStation, int State){
+        notificationService.update(CurrentStation,State);
+        Log.i("LOG_TAG", "Clicked Play");
+
+        //return 0;
     }
-    public int testonly( int State){
-        Toast.makeText(this, "notificationStringsReciever "+State, Toast.LENGTH_SHORT).show();
-        return 0;
-    }
+
 }

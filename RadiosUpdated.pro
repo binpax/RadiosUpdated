@@ -19,8 +19,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    RadioList.qml \
-    ToolBarDelegate.qml \
+    *.qml \
     android/src/com/ahmed/QAndroidResultReceiver/jniExport/jniExport.java \
     android/src/com/ahmed/biladiradio/* \
     android/AndroidManifest.xml \
