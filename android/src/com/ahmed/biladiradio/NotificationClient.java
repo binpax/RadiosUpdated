@@ -86,7 +86,9 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     private NotificationService notificationService;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //m_jniExport.intMethod(12);
+        //run in background
+        moveTaskToBack(true);
+
         mActivity = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mAudioFocusChangeListener = new AudioFocusChangeListenerImpl();
@@ -151,8 +153,8 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
     public int exitapplication(int cmd)
     {
         if(cmd == 1){
-            serviceIntent = new Intent(NotificationClient.this, NotificationService.class);
-            serviceIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
+            notificationService.stopForeground(true);
+            notificationService.stopSelf();
             unbindService(mConnection);
             this.finish();
             //android.os.Process.killProcess(android.os.Process.myPid());
@@ -235,10 +237,9 @@ private ServiceConnection mConnection = new ServiceConnection() {
 @Override
 public void sendPlayPressedButton() {
     Toast.makeText(this, "sendPressedButton ", Toast.LENGTH_SHORT).show();
-    //m_jniExport.intMethod(4);
-    Intent iinent= new Intent(this,QtApplication.class);
-    startActivity(iinent);
-
+    m_jniExport.intMethod(4);
+    //Intent iinent= new Intent(this,QtApplication.class);
+    //startActivity(iinent);
 }
     public void notificationStringsReciever(String CurrentStation, int State){
         notificationService.update(CurrentStation,State);
