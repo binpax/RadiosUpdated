@@ -11,12 +11,18 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import org.qtproject.qt5.android.bindings.QtService;
 
-public class NotificationService extends Service {
+public class NotificationService extends QtService {
     Notification status;
     //NotificationCompat.Builder mBuilder;
     Callbacks activity;
     private final IBinder mBinder = new LocalBinder();
+    @Override
+    public void onCreate()
+    {
+        super.onCreate();
+    }
     @Override
     public void onDestroy() {
         //this.stopForeground(false);
@@ -28,6 +34,7 @@ public class NotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+       super.onStartCommand(intent,flags,startId);
         if (intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)) {
             showNotification();
         }else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)) {
@@ -56,9 +63,10 @@ public class NotificationService extends Service {
         views.setViewVisibility(R.id.status_bar_icon, View.VISIBLE);
 
 
-        Intent notificationIntent = new Intent(this, NotificationClient.class);
-        notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        final Intent notificationIntent = new Intent(this, NotificationClient.class);
+        notificationIntent.setAction(Intent.ACTION_MAIN);
+        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        //notificationIntent.setFlags(Intent. | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         Intent closeIntent = new Intent(this, NotificationService.class);
@@ -91,6 +99,7 @@ public class NotificationService extends Service {
     }
     @Override
     public IBinder onBind(Intent intent) {
+        super.onBind(intent);
         return mBinder;
     }
     public class LocalBinder extends Binder {
